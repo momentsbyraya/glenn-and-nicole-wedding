@@ -7,13 +7,14 @@
     {
       "title": "Principal Sponsors",
       "type": "text",
-      "description": "Black suit with navy blue tie for Ninongs, while navy blue long formal gown for Ninangs.",
+      "description": "For Ninongs: Black suit with navy blue tie. For Ninangs: Navy blue long gown.",
       "image": "/assets/images/dresscode/sponsors.png"
     },
     {
       "title": "Guests",
       "type": "image",
-      "description": "For men, wear formal or casual suit with necktie or bow tie. For the ladies, wear formal or casual gown.",
+      "shortDescription": "Formal or semi-formal attire in the designated color palette.",
+      "description": "Gentlemen are kindly requested to wear a formal or semi-formal suit, complemented by a necktie or bowtie, in the designated color palette. Ladies may grace the occasion in a formal or semi-formal gown, also within the designated color palette.",
       "image": "/assets/images/dresscode/guests.png"
     }
   ]

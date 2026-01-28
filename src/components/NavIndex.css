@@ -117,7 +117,7 @@
 /* Flower 3 */
 .flower-3 {
   width: 25vw;
-  transform: translate(-50%, 50%);
+  transform: translate(-50%, 80%);
   z-index: 2;
   pointer-events: none;
 }
@@ -160,7 +160,7 @@
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  transform: rotate(-10deg) translateY(30px);
+  transform: translateY(30px) rotate(0deg) !important;
   opacity: 0;
   position: relative;
 }
@@ -259,7 +259,7 @@
   0% {
     opacity: 0;
     transform: scaleX(-1) scale(0);
-  }
+}
   100% {
     opacity: 1;
     transform: scaleX(-1) scale(1);

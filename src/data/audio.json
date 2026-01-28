@@ -1,5 +1,7 @@
 {
-  "background": "/assets/music/Out of My League by Stephen Speaks.mp3",
+  "background": "/assets/music/moon-river.mp3",
   "volume": 0.5,
-  "loop": true
+  "loop": false,
+  "loopStart": 2,
+  "loopEnd": 159
 } 

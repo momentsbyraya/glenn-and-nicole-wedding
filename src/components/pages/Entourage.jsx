@@ -1,19 +1,13 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useLayoutEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { ArrowLeft } from 'lucide-react'
-import { entourage } from '../../data'
+import { entourage, couple } from '../../data'
+import './Entourage.css'
 
 // Register ScrollTrigger plugin
 gsap.registerPlugin(ScrollTrigger)
-
-// Helper function to remove middle initial from name
-const removeMiddleInitial = (name) => {
-  // Remove single letter followed by period (middle initial)
-  // Pattern: space + single letter + period + space
-  return name.replace(/\s+[A-Z]\.\s+/g, ' ').replace(/\s+/g, ' ').trim()
-}
 
 const Entourage = () => {
   const navigate = useNavigate()
@@ -37,6 +31,123 @@ const Entourage = () => {
   const candleSponsorsRef = useRef(null)
   const juniorFlowerGirlsRef = useRef(null)
   const littleFlowerGirlsRef = useRef(null)
+  const flowersContainerRef = useRef(null)
+
+  useLayoutEffect(() => {
+    const pageLoadTime = performance.now()
+    console.log('Current page: Entourage')
+    console.log('Page load time:', pageLoadTime, 'ms')
+    
+    // Start falling flowers animation immediately when page opens
+    // The first flower (delay-0) starts immediately, others follow with their delays
+    const startAnimations = () => {
+      const animationStartTime = performance.now()
+      const timeSincePageLoad = ((animationStartTime - pageLoadTime) / 1000).toFixed(2)
+      
+      if (flowersContainerRef.current) {
+        const flowers = flowersContainerRef.current.querySelectorAll('.falling-flower')
+        console.log('Found flowers:', flowers.length)
+        
+        if (flowers.length > 0) {
+          let delayZeroFound = false
+          flowers.forEach((flower, index) => {
+            // Remove any existing animation delay for delay-0 to start immediately
+            if (flower.classList.contains('delay-0')) {
+              delayZeroFound = true
+              
+              // Force restart animation by removing and re-adding
+              flower.style.animation = 'none'
+              void flower.offsetWidth // Force reflow
+              
+              // Set initial transform to start delay-0 flowers at top of viewport (immediately visible)
+              // Start from 0vh instead of -100vh so they're visible right away
+              flower.style.transform = 'translateY(0vh) rotate(0deg)'
+              flower.style.opacity = '0.6'
+              flower.style.animationDelay = '0s'
+              flower.style.animationPlayState = 'running'
+              
+              // Re-apply animation - it will continue from the current transform
+              const speedClass = flower.classList.toString().match(/speed-(slow|medium|fast)/)?.[1] || 'medium'
+              const duration = speedClass === 'slow' ? 15 : speedClass === 'fast' ? 8 : 12
+              
+              // Create custom keyframes that start from 0vh (visible) instead of -100vh
+              const animationName = `fallingSnowVisible-${speedClass}`
+              if (!document.getElementById(`style-${animationName}`)) {
+                const style = document.createElement('style')
+                style.id = `style-${animationName}`
+                style.textContent = `
+                  @keyframes ${animationName} {
+                    0% {
+                      transform: translateY(0vh) rotate(0deg);
+                      opacity: 0.6;
+                    }
+                    90% {
+                      opacity: 0.6;
+                    }
+                    100% {
+                      transform: translateY(100vh) rotate(360deg);
+                      opacity: 0;
+                    }
+                  }
+                `
+                document.head.appendChild(style)
+              }
+              
+              flower.style.animation = `${animationName} ${duration}s linear infinite`
+              
+              // Check computed styles to verify what's actually applied
+              const computedStyle = window.getComputedStyle(flower)
+              const computedDelay = computedStyle.animationDelay
+              const computedPlayState = computedStyle.animationPlayState
+              const computedOpacity = computedStyle.opacity
+              const computedTop = computedStyle.top
+              const computedTransform = computedStyle.transform
+              
+              console.log(`Flower ${index} (delay-0): Animation started at ${timeSincePageLoad}s`)
+              console.log(`  - Computed animation-delay: ${computedDelay}`)
+              console.log(`  - Computed animation-play-state: ${computedPlayState}`)
+              console.log(`  - Computed opacity: ${computedOpacity}`)
+              console.log(`  - Computed top: ${computedTop}`)
+              console.log(`  - Computed transform: ${computedTransform}`)
+              console.log(`  - Element visible: ${flower.offsetParent !== null}`)
+            } else {
+              const delay = flower.classList.toString().match(/delay-(\d+)/)?.[1] || 'unknown'
+              flower.style.animationPlayState = 'running'
+              
+              // Check computed styles for other flowers too
+              const computedStyle = window.getComputedStyle(flower)
+              const computedDelay = computedStyle.animationDelay
+              
+              console.log(`Flower ${index} (delay-${delay}): Animation play state set at ${timeSincePageLoad}s`)
+              console.log(`  - Computed animation-delay: ${computedDelay}`)
+            }
+            // Trigger reflow to ensure animation starts
+            void flower.offsetWidth
+          })
+          
+          if (!delayZeroFound) {
+            console.warn('WARNING: No delay-0 flower found!')
+          }
+          
+          console.log(`Snow effect started after: ${timeSincePageLoad}sec`)
+        } else {
+          console.warn('No flowers found in container!')
+        }
+      } else {
+        console.warn('Flowers container ref is null!')
+      }
+    }
+    
+    // Try immediately
+    console.log('Attempting to start animations immediately...')
+    startAnimations()
+    
+    // Also try on next frame in case DOM isn't ready
+    requestAnimationFrame(() => {
+      console.log('Attempting to start animations on next frame...')
+      startAnimations()
+    })
+  }, [])
 
   useEffect(() => {
     // Set initial hidden states to prevent glimpse
@@ -149,9 +260,9 @@ const Entourage = () => {
           if (row.length > 0) {
             allNameRows.push({ elements: row, time: currentTime })
             currentTime += 0.2
-          }
-        }
-        
+    }
+    }
+
         // Collect unpaired ninangs
         const unpairedNinangs = principalSponsorsRef.current?.querySelectorAll('.mt-4 .ninang-item')
         if (unpairedNinangs && unpairedNinangs.length > 0) {
@@ -159,8 +270,8 @@ const Entourage = () => {
           Array.from(unpairedNinangs).forEach(ninang => {
             allNameRows.push({ elements: [ninang], time: currentTime })
             currentTime += 0.1
-          })
-        }
+      })
+    }
       }
     }
 
@@ -179,8 +290,8 @@ const Entourage = () => {
     
     // Bible Bearer, Ring Bearer, Coin Bearer, Flower Boys - collect (single column - one name per row)
     const bearerRefs = [bibleBearerRef, ringBearerRef, coinBearerRef, flowerBoysRef].filter(ref => ref.current)
-    bearerRefs.forEach(ref => {
-      const names = ref.current.querySelectorAll('p.font-poppins')
+      bearerRefs.forEach(ref => {
+        const names = ref.current.querySelectorAll('p.font-poppins')
       if (names.length > 0) {
         gsap.set(names, { opacity: 0, y: 20 })
         Array.from(names).forEach(name => {
@@ -219,7 +330,7 @@ const Entourage = () => {
         Array.from(names).forEach(name => {
           allNameRows.push({ elements: [name], time: currentTime })
           currentTime += 0.1
-        })
+              })
       }
     }
 
@@ -249,10 +360,10 @@ const Entourage = () => {
     
     // Animate all collected rows sequentially when any section comes into view
     if (allNameRows.length > 0 && parentsRef.current) {
-      ScrollTrigger.create({
+        ScrollTrigger.create({
         trigger: parentsRef.current,
-        start: "top 80%",
-        onEnter: () => {
+          start: "top 80%",
+          onEnter: () => {
           const masterTl = gsap.timeline()
           allNameRows.forEach(({ elements, time }) => {
             masterTl.to(elements, {
@@ -261,10 +372,10 @@ const Entourage = () => {
               duration: 0.6,
               ease: "power2.out"
             }, time)
-          })
-        },
-        toggleActions: "play none none reverse"
-      })
+            })
+          },
+          toggleActions: "play none none reverse"
+        })
     }
 
     // Cleanup function
@@ -290,28 +401,57 @@ const Entourage = () => {
 
   return (
     <>
+      {/* Falling Snow Effect - Flower-3 (fixed to viewport, independent of scroll) */}
+      <div ref={flowersContainerRef}>
+        {[...Array(20)].map((_, i) => {
+          const leftPosition = `${(i * 5) % 100}%`
+          const sizeClass = i % 3 === 0 ? 'size-small' : i % 3 === 1 ? 'size-medium' : 'size-large'
+          const speedClass = i % 3 === 0 ? 'speed-slow' : i % 3 === 1 ? 'speed-medium' : 'speed-fast'
+          const delayClass = `delay-${i % 15}`
+          const isDelayZero = (i % 15) === 0
+
+          return (
+            <div
+              key={`falling-flower-${i}`}
+              className={`falling-flower ${sizeClass} ${speedClass} ${delayClass}`}
+              style={{ 
+                left: leftPosition,
+                ...(isDelayZero && {
+                  animationDelay: '0s',
+                  opacity: '0.6',
+                  animationPlayState: 'running'
+                })
+              }}
+            >
+              <img 
+                src="/assets/images/graphics/flower-3.png" 
+                alt="Falling flower"
+              />
+            </div>
+          )
+        })}
+      </div>
+
       <section
         ref={sectionRef}
         id="entourage"
         data-section="entourage"
-        className="relative py-20 w-full overflow-hidden"
+        className="relative w-full overflow-hidden px-6 py-32 sm:py-40 md:py-44 lg:py-52"
         style={{ 
           opacity: 0, 
-          transform: 'translateX(100%)',
-          paddingLeft: '1rem',
-          paddingRight: '1rem',
-          paddingTop: '4rem',
-          paddingBottom: '4rem'
+          transform: 'translateX(100%)'
         }}
       >
-        {/* Flower Divider - Top */}
-        <div className="relative w-full h-16 sm:h-20 md:h-24 flex items-center justify-center">
-          <img 
-            src="/assets/images/graphics/flower-divider.png" 
-            alt="Flower divider"
-            className="w-full h-full object-contain"
-            style={{ transform: 'scale(2.5) rotate(5deg)' }}
-          />
+        {/* Flower Banner - Top (absolute, full viewport width, container matches image size) */}
+        <div
+          className="absolute top-0 flex items-center justify-center"
+          style={{ left: 0, width: '100vw' }}
+        >
+        <img 
+            src="/assets/images/graphics/flower-banner.png" 
+            alt="Flower banner"
+            style={{ width: '100vw', height: 'auto', display: 'block' }}
+        />
         </div>
 
         {/* Content */}
@@ -322,7 +462,7 @@ const Entourage = () => {
               <h2 ref={headerRef} className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl mb-8">
                 {/* Couple Names */}
                 <div className="font-tebranos text-4xl sm:text-5xl md:text-6xl lg:text-7xl block leading-none uppercase" style={{ lineHeight: '0.8', color: '#006666' }}>
-                  MARK & EMMARIEL
+                  {couple.groom.firstName} AND {couple.bride.firstName}
                 </div>
                 {/* NUPTIALS */}
                 <div className="caudex-bold text-base sm:text-lg md:text-xl lg:text-2xl block leading-none uppercase mt-1" style={{ lineHeight: '0.8', color: '#006666' }}>
@@ -348,32 +488,32 @@ const Entourage = () => {
               </div>
             </div>
 
-            {/* Bestman and Maid of Honor */}
+                {/* Bestman and Maid of Honor */}
             <div className="mb-6 flex flex-row gap-4 sm:gap-6 justify-center items-center">
-              {/* Bestman */}
-              {bestman && (
-                <div ref={bestmanRef} className="flex-1">
+                  {/* Bestman */}
+                  {bestman && (
+                    <div ref={bestmanRef} className="flex-1">
                   <p className="text-[10px] sm:text-[13px] md:text-[15px] lg:text-[17px] caudex-bold mb-2 whitespace-nowrap text-right uppercase" style={{ color: '#006666' }}>Bestman</p>
-                  {bestman.names && bestman.names.map((name, index) => (
+                      {bestman.names && bestman.names.map((name, index) => (
                     <p key={index} className="text-[8.5px] sm:text-[12px] md:text-[14px] lg:text-[16px] font-poppins uppercase text-[#333333] whitespace-nowrap overflow-hidden text-ellipsis text-right">
-                      {name}
-                    </p>
-                  ))}
-                </div>
-              )}
+                          {name}
+                        </p>
+                      ))}
+                    </div>
+                  )}
 
-              {/* Maid of Honor */}
-              {maidOfHonor && (
-                <div ref={maidOfHonorRef} className="flex-1">
+                  {/* Maid of Honor */}
+                  {maidOfHonor && (
+                    <div ref={maidOfHonorRef} className="flex-1">
                   <p className="text-[10px] sm:text-[13px] md:text-[15px] lg:text-[17px] caudex-bold mb-2 whitespace-nowrap text-left uppercase" style={{ color: '#006666' }}>Maid Of Honor</p>
-                  {maidOfHonor.names && maidOfHonor.names.map((name, index) => (
+                      {maidOfHonor.names && maidOfHonor.names.map((name, index) => (
                     <p key={index} className="text-[8.5px] sm:text-[12px] md:text-[14px] lg:text-[16px] font-poppins uppercase text-[#333333] whitespace-nowrap overflow-hidden text-ellipsis text-left">
-                      {name}
-                    </p>
-                  ))}
+                          {name}
+                        </p>
+                      ))}
+                    </div>
+                  )}
                 </div>
-              )}
-            </div>
 
             {/* Principal Sponsors */}
             {principalSponsors && (() => {
@@ -385,27 +525,27 @@ const Entourage = () => {
               return (
                 <div ref={principalSponsorsRef} className="mb-6">
                   <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl imperial-script-regular mb-6 text-center capitalize whitespace-nowrap" style={{ color: '#006666' }}>Principal Sponsors</h3>
-                  <div className="flex flex-row gap-4 sm:gap-6 justify-center items-start">
+                <div className="flex flex-row gap-4 sm:gap-6 justify-center items-start">
                     {/* NINONG Column */}
-                    <div className="flex-1">
-                      <div className="space-y-2">
+                  <div className="flex-1">
+                    <div className="space-y-2">
                         {ninongs.map((name, index) => (
                           <p key={index} className="ninong-item text-[8.5px] sm:text-[12px] md:text-[14px] lg:text-[16px] font-poppins uppercase text-[#333333] text-right whitespace-nowrap overflow-hidden text-ellipsis">
-                            {name}
-                          </p>
-                        ))}
-                      </div>
+                          {name}
+                        </p>
+                      ))}
                     </div>
+                  </div>
                     {/* NINANG Column - Paired */}
-                    <div className="flex-1">
-                      <div className="space-y-2">
+                  <div className="flex-1">
+                    <div className="space-y-2">
                         {pairedNinangs.map((name, index) => (
                           <p key={index} className="ninang-item text-[8.5px] sm:text-[12px] md:text-[14px] lg:text-[16px] font-poppins uppercase text-[#333333] text-left whitespace-nowrap overflow-hidden text-ellipsis">
-                            {name}
-                          </p>
-                        ))}
-                      </div>
+                          {name}
+                        </p>
+                      ))}
                     </div>
+                  </div>
                   </div>
                   {/* Unpaired NINANGs - Centered */}
                   {unpairedNinangs.length > 0 && (
@@ -454,9 +594,9 @@ const Entourage = () => {
                             {name}
                           </p>
                         ))}
-                      </div>
-                    </div>
-                  )}
+                </div>
+              </div>
+            )}
 
                   {/* Cord Sponsors */}
                   {cordSponsors && (
@@ -473,57 +613,57 @@ const Entourage = () => {
                   )}
                 </div>
 
-                {/* Bible Bearer, Ring Bearer, Coin Bearer, and Flower Boys */}
-                {(bibleBearer || ringBearer || coinBearer || flowerBoys) && (
-                  <div className="mb-6">
-                    <div className="flex flex-col gap-6 justify-center items-center mt-6">
-                        {/* Bible Bearer */}
-                        {bibleBearer && (
-                          <div ref={bibleBearerRef}>
+            {/* Bible Bearer, Ring Bearer, Coin Bearer, and Flower Boys */}
+            {(bibleBearer || ringBearer || coinBearer || flowerBoys) && (
+              <div className="mb-6">
+                <div className="flex flex-col gap-6 justify-center items-center mt-6">
+                    {/* Bible Bearer */}
+                    {bibleBearer && (
+                      <div ref={bibleBearerRef}>
                           <p className="text-[10px] sm:text-[13px] md:text-[15px] lg:text-[17px] caudex-bold mb-2 whitespace-nowrap text-center uppercase" style={{ color: '#006666' }}>Bible Bearer</p>
-                            {bibleBearer.names && bibleBearer.names.map((name, index) => (
+                        {bibleBearer.names && bibleBearer.names.map((name, index) => (
                             <p key={index} className="text-[8.5px] sm:text-[12px] md:text-[14px] lg:text-[16px] font-poppins uppercase text-[#333333] whitespace-nowrap overflow-hidden text-ellipsis text-center">
-                                {name}
-                              </p>
-                            ))}
-                          </div>
-                        )}
+                            {name}
+                          </p>
+                        ))}
+                      </div>
+                    )}
 
-                        {/* Ring Bearer */}
-                        {ringBearer && (
-                          <div ref={ringBearerRef}>
+                    {/* Ring Bearer */}
+                    {ringBearer && (
+                      <div ref={ringBearerRef}>
                           <p className="text-[10px] sm:text-[13px] md:text-[15px] lg:text-[17px] caudex-bold mb-2 whitespace-nowrap text-center uppercase" style={{ color: '#006666' }}>Ring Bearer</p>
-                            {ringBearer.names && ringBearer.names.map((name, index) => (
+                        {ringBearer.names && ringBearer.names.map((name, index) => (
                             <p key={index} className="text-[8.5px] sm:text-[12px] md:text-[14px] lg:text-[16px] font-poppins uppercase text-[#333333] whitespace-nowrap overflow-hidden text-ellipsis text-center">
-                                {name}
-                              </p>
-                            ))}
-                          </div>
-                        )}
+                            {name}
+                          </p>
+                        ))}
+                      </div>
+                    )}
 
-                        {/* Coin Bearer */}
-                        {coinBearer && (
-                          <div ref={coinBearerRef}>
+                    {/* Coin Bearer */}
+                    {coinBearer && (
+                      <div ref={coinBearerRef}>
                           <p className="text-[10px] sm:text-[13px] md:text-[15px] lg:text-[17px] caudex-bold mb-2 whitespace-nowrap text-center uppercase" style={{ color: '#006666' }}>Coin Bearer</p>
-                            {coinBearer.names && coinBearer.names.map((name, index) => (
+                        {coinBearer.names && coinBearer.names.map((name, index) => (
                             <p key={index} className="text-[8.5px] sm:text-[12px] md:text-[14px] lg:text-[16px] font-poppins uppercase text-[#333333] whitespace-nowrap overflow-hidden text-ellipsis text-center">
-                                {name}
-                              </p>
-                            ))}
-                          </div>
-                        )}
+                            {name}
+                          </p>
+                        ))}
+                      </div>
+                    )}
 
-                        {/* Flower Boys */}
-                        {flowerBoys && (
-                          <div ref={flowerBoysRef}>
+                    {/* Flower Boys */}
+                    {flowerBoys && (
+                      <div ref={flowerBoysRef}>
                           <p className="text-[10px] sm:text-[13px] md:text-[15px] lg:text-[17px] caudex-bold mb-2 whitespace-nowrap text-center uppercase" style={{ color: '#006666' }}>Flower Boys</p>
-                            {flowerBoys.names && flowerBoys.names.map((name, index) => (
+                        {flowerBoys.names && flowerBoys.names.map((name, index) => (
                             <p key={index} className="text-[8.5px] sm:text-[12px] md:text-[14px] lg:text-[16px] font-poppins uppercase text-[#333333] whitespace-nowrap overflow-hidden text-ellipsis text-center">
-                                {name}
-                              </p>
-                            ))}
-                          </div>
-                        )}
+                            {name}
+                          </p>
+                        ))}
+                      </div>
+                    )}
                       </div>
                   </div>
                 )}
@@ -579,7 +719,7 @@ const Entourage = () => {
                       {name}
                     </p>
                   ))}
-                </div>
+                  </div>
               </div>
             )}
 
@@ -599,16 +739,15 @@ const Entourage = () => {
           </div>
         </div>
 
-        {/* Flower Divider - Bottom - Flipped horizontally and vertically */}
-        <div className="relative w-full h-16 sm:h-20 md:h-24 flex items-center justify-center my-8">
+        {/* Flower Banner - Bottom (absolute, full viewport width, container matches image size, flipped vertically) */}
+        <div
+          className="absolute bottom-0 flex items-center justify-center"
+          style={{ left: 0, width: '100vw' }}
+        >
           <img 
-            src="/assets/images/graphics/flower-divider.png" 
-            alt="Flower divider" 
-            className="w-full h-full object-contain"
-            style={{ 
-              transform: 'scale(2.5) rotate(5deg) scaleX(-1) scaleY(-1)',
-              transformOrigin: 'center'
-            }}
+            src="/assets/images/graphics/flower-banner.png" 
+            alt="Flower banner" 
+            style={{ width: '100vw', height: 'auto', display: 'block', transform: 'scaleY(-1)', transformOrigin: 'center' }}
           />
         </div>
       </section>

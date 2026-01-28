@@ -256,8 +256,8 @@ const NavIndex = ({ onOpenRSVP }) => {
             />
             
              {/* Rectangle Container with Thick Border */}
-             <div 
-               ref={polaroidRef}
+            <div 
+              ref={polaroidRef}
                className="bg-white relative polaroid-container border-8 flex flex-col p-2"
                style={{ borderColor: '#6B8FA3', transform: 'none' }}
              >
@@ -313,7 +313,7 @@ const NavIndex = ({ onOpenRSVP }) => {
                 alt="Flower decoration" 
                 className="absolute bottom-0 left-0 h-auto object-contain flower-3"
               />
-             </div>
+            </div>
           </div>
         </div>
 
@@ -323,16 +323,16 @@ const NavIndex = ({ onOpenRSVP }) => {
             ref={rsvpContainerRef}
             className="bg-white flex flex-col cursor-pointer transition-transform duration-300 relative rsvp-container"
             onMouseEnter={(e) => {
-              e.currentTarget.style.transform = 'rotate(-10deg) scale(1.05)'
+              e.currentTarget.style.transform = 'rotate(0deg) scale(1.05)'
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.transform = 'rotate(-10deg) scale(1)'
+              e.currentTarget.style.transform = 'rotate(0deg) scale(1)'
             }}
             onMouseDown={(e) => {
-              e.currentTarget.style.transform = 'rotate(-10deg) scale(1.1)'
+              e.currentTarget.style.transform = 'rotate(0deg) scale(1.1)'
             }}
             onMouseUp={(e) => {
-              e.currentTarget.style.transform = 'rotate(-10deg) scale(1.05)'
+              e.currentTarget.style.transform = 'rotate(0deg) scale(1.05)'
             }}
             onClick={() => {
               if (onOpenRSVP) {

@@ -154,15 +154,6 @@ const DressCode = () => {
             formal attire
             that suits in our color motif
           </p>
-          
-          {/* Dress Code Image */}
-          <div className="flex justify-center mt-6 mb-8">
-            <img 
-              src="/assets/images/dresscode/dressscode.png" 
-              alt="Dress Code" 
-              className="w-[85%] h-auto object-contain"
-            />
-          </div>
         </div>
       </div>
 
@@ -191,10 +182,16 @@ const DressCode = () => {
                         
                         {/* Description */}
                         {section.description && (
-                          <p className="text-sm sm:text-base font-albert font-thin italic text-[#333333] mb-4 text-right lg-custom:text-left">
+                          <p className="text-sm sm:text-base font-albert font-thin italic text-[#333333] mb-3 text-right lg-custom:text-left">
                             {section.description}
                           </p>
                         )}
+                        
+                        {/* Color Swatches */}
+                        <div className="flex gap-2 justify-end lg-custom:justify-start">
+                          <div className="w-6 h-6 sm:w-8 sm:h-8 border border-gray-300 rounded" style={{ backgroundColor: '#000000' }}></div>
+                          <div className="w-6 h-6 sm:w-8 sm:h-8 border border-gray-300 rounded" style={{ backgroundColor: '#003366' }}></div>
+                        </div>
                       </div>
                     </div>
                     
@@ -261,15 +258,33 @@ const DressCode = () => {
                           {section.title}
                         </div>
                         
-                        {/* Description */}
-                        {section.description && (
-                          <p className="text-sm sm:text-base font-albert font-thin italic text-[#333333] mb-4 text-left lg-custom:text-left">
-                            {section.description}
+                        {/* Short General Description */}
+                        {section.shortDescription && (
+                          <p className="text-sm sm:text-base font-albert font-thin italic text-[#333333] mb-3 text-left lg-custom:text-left">
+                            {section.shortDescription}
                           </p>
                         )}
+                        
+                        {/* Color Swatches */}
+                        <div className="flex gap-2 justify-start lg-custom:justify-start">
+                          <div className="w-6 h-6 sm:w-8 sm:h-8 border border-gray-300 rounded" style={{ backgroundColor: '#d8beb5' }}></div>
+                          <div className="w-6 h-6 sm:w-8 sm:h-8 border border-gray-300 rounded" style={{ backgroundColor: '#ac898d' }}></div>
+                          <div className="w-6 h-6 sm:w-8 sm:h-8 border border-gray-300 rounded" style={{ backgroundColor: '#dab2a9' }}></div>
+                          <div className="w-6 h-6 sm:w-8 sm:h-8 border border-gray-300 rounded" style={{ backgroundColor: '#e7dbcb' }}></div>
+                          <div className="w-6 h-6 sm:w-8 sm:h-8 border border-gray-300 rounded" style={{ backgroundColor: '#dcbaa1' }}></div>
+                        </div>
                       </div>
                     </div>
                   </div>
+                  
+                  {/* Detailed Description - Full width, centered, smaller text */}
+                  {section.description && (
+                    <div className="w-full mt-4 text-center">
+                      <p className="text-xs sm:text-sm font-albert font-thin italic text-[#333333]">
+                        {section.description}
+                      </p>
+                    </div>
+                  )}
                       </div>
                     </div>
                 </div>

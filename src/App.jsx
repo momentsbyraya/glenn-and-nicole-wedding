@@ -7,7 +7,7 @@ import RSVPModal from './components/RSVPModal'
 import DynamicTitle from './components/DynamicTitle'
 import OpeningScreen from './components/OpeningScreen'
 import Loader from './components/Loader'
-import Watermark from './components/Watermark'
+// import Watermark from './components/Watermark'
 import ScrollToTop from './components/ScrollToTop'
 import Details from './components/pages/Details'
 import Entourage from './components/pages/Entourage'
@@ -122,7 +122,7 @@ function AppContent() {
   return (
     <div className="App min-h-screen wedding-gradient">
       <DynamicTitle />
-      <Watermark />
+      {/* <Watermark /> */}
       <ScrollToTop />
       {/* Loader - shows while preloading */}
       {isLoading && (

@@ -1,7 +1,7 @@
 {
   "events": [
     {
-      "time": "12:30 PM",
+      "time": "12:45 PM",
       "description": "Welcoming of Guests",
       "image": "/assets/images/graphics/welcome-2.png",
       "imageAlt": "Welcoming of Guests",
@@ -15,18 +15,25 @@
       "position": "right"
     },
           {
-            "time": "3:00 PM",
-            "description": "Reception",
+            "time": "4:00 PM",
+            "description": "Cocktail Hour",
             "image": "/assets/images/graphics/cake-2.png",
             "imageAlt": "Reception",
             "position": "left"
           },
     {
-      "time": "7:00 PM",
-      "description": "Party Ends",
-      "image": "/assets/images/graphics/car-2.png",
-      "imageAlt": "Party Ends",
+      "time": "6:00 PM",
+      "description": "Dinner",
+      "image": "/assets/images/graphics/dinner-2.png",
+      "imageAlt": "Dinner",
       "position": "right"
+    },
+    {
+      "time": "7:00 PM",
+      "description": "Program",
+      "image": "/assets/images/graphics/car-2.png",
+      "imageAlt": "Program",
+      "position": "left"
     }
   ]
 }

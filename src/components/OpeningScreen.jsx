@@ -76,7 +76,7 @@ function OpeningScreen({ onEnvelopeOpen }) {
     <div 
       ref={openingSectionRef}
       className="fixed inset-0 z-[9999] flex items-center justify-center opening-section"
-      style={{
+        style={{
         backgroundImage: 'url(/assets/images/graphics/textured-bg-2.png)',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
