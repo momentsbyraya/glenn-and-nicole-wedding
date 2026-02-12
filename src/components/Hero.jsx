@@ -139,7 +139,7 @@ const Hero = () => {
       />
       
       <img 
-        src="/assets/images/prenup/Ligawan stage 1.jpg" 
+        src="/assets/images/prenup/prenup3.JPG" 
         alt="Hero"
         className="w-full h-full object-cover"
       />

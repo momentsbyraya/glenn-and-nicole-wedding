@@ -24,15 +24,15 @@ const LoveStory = () => {
 
   // Polaroid images - using prenup images in specific order
   const polaroidImages = [
-    '/assets/images/prenup/Feb 14, 2022 akyat ng ligaw.jpeg',  // 1. akyat ng ligaw
-    '/assets/images/prenup/Ligawan stage 2.0.png',            // 2. ligawan stage 2.0
-    '/assets/images/prenup/Ligawan stage 2.1.png',            // 3. ligawan stage 2.1
-    '/assets/images/prenup/Ligawan stage 1.JPG',                // 4. ligawan stage 1
-    '/assets/images/prenup/Proposal 1.JPG',                    // 5. rest of images
-    '/assets/images/prenup/IMG_2628.png',                     // 6. moment 6 image
-    '/assets/images/prenup/Proposal 3.JPG',
-    '/assets/images/prenup/Proposal 4.JPG',
-    '/assets/images/prenup/Proposal 5.JPG',
+    '/assets/images/prenup/prenup1.jpeg',  // 1. akyat ng ligaw
+    '/assets/images/prenup/prenup2.png',   // 2. ligawan stage 2.0
+    '/assets/images/prenup/prenup3.JPG',   // 3. ligawan stage 2.1
+    '/assets/images/prenup/prenup5.png',   // 4. ligawan stage 1
+    '/assets/images/prenup/prenup6.png',   // 5. rest of images
+    '/assets/images/prenup/prenup7.JPG',   // 6. moment 6 image
+    '/assets/images/prenup/prenup9.JPG',
+    '/assets/images/prenup/prenup10.JPG',
+    '/assets/images/prenup/prenup12.png',
   ]
 
   useEffect(() => {
@@ -234,23 +234,23 @@ const LoveStory = () => {
           <div className="relative z-10 space-y-16 sm:space-y-20 md:space-y-24">
             {paragraphs.map((paragraph, index) => {
               const isEven = index % 2 === 0
-              // Calculate image indices: even = 1 photo, odd = 2 photos
-              // Pattern: index 0 (1 photo), index 1 (2 photos), index 2 (1 photo), index 3 (2 photos)...
+              // Calculate image indices: even = 2 photos, odd = 1 photo
+              // Pattern: index 0 (2 photos), index 1 (1 photo), index 2 (2 photos), index 3 (1 photo)...
               // Calculate starting image index based on previous items
               let startImageIndex
               if (index === 0) {
                 startImageIndex = 0
               } else {
                 // Count images used before this index
-                // index 0 uses 1, index 1 uses 2, index 2 uses 1, index 3 uses 2...
+                // index 0 uses 2, index 1 uses 1, index 2 uses 2, index 3 uses 1...
                 const pairs = Math.floor(index / 2)
-                const imagesBefore = pairs * 3 + (index % 2 === 0 ? 0 : 1)
+                const imagesBefore = pairs * 3 + (index % 2 === 0 ? 0 : 2)
                 startImageIndex = imagesBefore
               }
               
-              const singleImageIndex = isEven ? startImageIndex : null
-              const imageIndex1 = isEven ? null : startImageIndex
-              const imageIndex2 = isEven ? null : startImageIndex + 1
+              const singleImageIndex = isEven ? null : startImageIndex
+              const imageIndex1 = isEven ? startImageIndex : null
+              const imageIndex2 = isEven ? startImageIndex + 1 : null
               const isLast = index === paragraphs.length - 1
 
               return (
@@ -293,26 +293,7 @@ const LoveStory = () => {
                   )}
 
                   {isEven ? (
-                    // Even rows (index 0, 2, 4...): 1 polaroid, then paragraph
-                    <div className="flex flex-col sm:flex-row items-center gap-6 sm:gap-8">
-                      <div className="flex justify-center flex-1 order-1 sm:order-1">
-                        {polaroidImages[singleImageIndex] && (
-                          <Polaroid 
-                            image={polaroidImages[singleImageIndex]} 
-                            rotation={3}
-                            index={singleImageIndex}
-                            size="small"
-                          />
-                        )}
-                      </div>
-                      <div className="flex-1 text-center sm:text-left order-2 sm:order-2">
-                        <p className="text-base sm:text-lg font-albert font-thin text-[#333333] leading-relaxed">
-                          {formatParagraph(paragraph)}
-                        </p>
-                      </div>
-                    </div>
-                  ) : (
-                    // Odd rows (index 1, 3, 5...): 2 polaroids, then paragraph
+                    // Even rows (index 0, 2, 4...): 2 polaroids, then paragraph
                     <div className="flex flex-col sm:flex-row items-center gap-6 sm:gap-8">
                       <div className="flex gap-4 sm:gap-6 justify-center flex-1">
                         {polaroidImages[imageIndex1] && (
@@ -331,6 +312,25 @@ const LoveStory = () => {
                         )}
                       </div>
                       <div className="flex-1 text-center sm:text-left">
+                        <p className="text-base sm:text-lg font-albert font-thin text-[#333333] leading-relaxed">
+                          {formatParagraph(paragraph)}
+                        </p>
+                      </div>
+                    </div>
+                  ) : (
+                    // Odd rows (index 1, 3, 5...): 1 polaroid, then paragraph
+                    <div className="flex flex-col sm:flex-row items-center gap-6 sm:gap-8">
+                      <div className="flex justify-center flex-1 order-1 sm:order-1">
+                        {polaroidImages[singleImageIndex] && (
+                          <Polaroid 
+                            image={polaroidImages[singleImageIndex]} 
+                            rotation={3}
+                            index={singleImageIndex}
+                            size="small"
+                          />
+                        )}
+                      </div>
+                      <div className="flex-1 text-center sm:text-left order-2 sm:order-2">
                         <p className="text-base sm:text-lg font-albert font-thin text-[#333333] leading-relaxed">
                           {formatParagraph(paragraph)}
                         </p>
