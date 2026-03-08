@@ -27,7 +27,7 @@ const Hero = () => {
     return `${monthUpper}.${dayFormatted}.${year}`
   }
 
-  const venueName = venues.ceremony.name
+  const venueName = venues.reception.name
 
   const togglePlayPause = () => {
     if (audioRef.current) {
@@ -133,15 +133,15 @@ const Hero = () => {
       {/* Audio Element */}
       <audio
         ref={audioRef}
-        src="/assets/music/Christina Perri - A Thousand Years [Official Music Video].mp3"
+        src="/assets/music/TJ Monterde - PALAGI (Lyrics).mp3"
         loop
         onEnded={() => setIsPlaying(false)}
       />
       
       <img 
-        src="/assets/images/prenup/prenup5.jpg" 
+        src="/assets/images/prenup/DE_00574.jpg" 
         alt="Hero"
-        className="w-full h-full object-cover"
+        className="w-full h-full object-cover object-top md:object-[center_18%]"
       />
       
       {/* Blurred White SVG Overlay at Top */}
@@ -215,19 +215,24 @@ const Hero = () => {
         <rect width="100%" height="100%" fill="url(#bottomGradient)" filter="url(#blurBottom)" />
       </svg>
 
-      {/* Play/Pause Button - Bottom Right */}
-      <button 
+      {/* YouTube Link Button - Bottom Right */}
+      <a
+        href="https://youtu.be/O1r5alumaBs"
+        target="_blank"
+        rel="noopener noreferrer"
         ref={playButtonRef}
-        onClick={togglePlayPause}
-        className="absolute bottom-4 sm:bottom-6 md:bottom-8 right-4 sm:right-6 md:right-8 z-30 w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 rounded-full bg-white/90 hover:bg-white transition-colors duration-200 flex items-center justify-center shadow-lg cursor-pointer"
-        style={{ pointerEvents: 'auto' }}
+        className="youtube-btn-pulse absolute bottom-4 sm:bottom-6 md:bottom-8 right-4 sm:right-6 md:right-8 z-30 w-10 h-10 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center shadow-lg cursor-pointer hover:scale-105 transition-all duration-200 border-2 border-red-600/30"
+        style={{ pointerEvents: 'auto', backgroundColor: '#FF0000' }}
+        aria-label="Listen on YouTube"
+        onMouseEnter={(e) => {
+          e.currentTarget.style.backgroundColor = '#CC0000'
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.backgroundColor = '#FF0000'
+        }}
       >
-        {isPlaying ? (
-          <Pause size={18} className="sm:w-5 sm:h-5 md:w-6 md:h-6 text-burgundy-wine" fill="#5A1E2A" />
-        ) : (
-          <Play size={18} className="sm:w-5 sm:h-5 md:w-6 md:h-6 text-burgundy-wine ml-1" fill="#5A1E2A" />
-        )}
-      </button>
+        <Play size={16} className="sm:w-4 sm:h-4 md:w-5 md:h-5 text-white ml-0.5" fill="white" />
+      </a>
 
       {/* Date and Venue at Bottom Center */}
       <div className="absolute bottom-0 left-0 right-0 pb-8 sm:pb-12 md:pb-16 lg:pb-20 px-4 sm:px-6 md:px-8 z-20">

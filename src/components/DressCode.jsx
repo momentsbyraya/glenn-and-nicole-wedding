@@ -17,37 +17,33 @@ const DressCode = () => {
   // State for tooltip visibility
   const [activeTooltip, setActiveTooltip] = useState(null)
   
-  // Burgundy Red Wine palette
-  const BURGUNDY_DARK = '#5A1E2A'
-  const BURGUNDY_WINE = '#5A1E2A'
-  const BURGUNDY_TAN = '#C08A8F'
-  const BURGUNDY_CREAM = '#F3E8E2'
+  // Dress code color palette
+  const BURGUNDY = '#800020'      // Primary color, headers, buttons
+  const ROSE_GOLD = '#B76E79'     // Accent elements, icons, borders
+  const BLUSH_PINK = '#F4C2C2'    // Background sections
+  const DUSTY_ROSE = '#C08081'    // Secondary accents
 
-  // Color swatches for Principal Sponsors (black for Ninongs, burgundy wine for Ninangs)
+  // Color swatches for Principal Sponsors (black for Ninongs, burgundy for Ninangs)
   const sponsorColors = [
-    '#000000',   // Black (for Ninongs)
-    BURGUNDY_WINE  // Burgundy wine (for Ninangs)
+    '#000000',  // Black (for Ninongs)
+    BURGUNDY   // Burgundy (for Ninangs)
   ]
 
-  // Color swatches for Guests (burgundy red wine palette)
+  // Color swatches for Guests (dress code palette)
   const guestColors = [
-    BURGUNDY_DARK,   // Dark burgundy
-    BURGUNDY_WINE,   // Wine
-    BURGUNDY_TAN,    // Tan
-    BURGUNDY_CREAM,  // Cream
-    '#a86d72',       // Lighter dusty rose variant
-    '#F3E8E2'        // Champagne beige
+    BURGUNDY,    // Burgundy – primary
+    ROSE_GOLD,   // Rose Gold – accent
+    BLUSH_PINK,  // Blush Pink – background
+    DUSTY_ROSE   // Dusty Rose – secondary
   ]
 
   // Color name mappings
   const colorNames = {
     '#000000': 'Black',
-    [BURGUNDY_DARK]: 'Burgundy Dark',
-    [BURGUNDY_WINE]: 'Burgundy Wine',
-    [BURGUNDY_TAN]: 'Burgundy Tan',
-    [BURGUNDY_CREAM]: 'Cream',
-    '#a86d72': 'Light Dusty Rose',
-    '#F3E8E2': 'Champagne Beige'
+    [BURGUNDY]: 'Burgundy',
+    [ROSE_GOLD]: 'Rose Gold',
+    [BLUSH_PINK]: 'Blush Pink',
+    [DUSTY_ROSE]: 'Dusty Rose'
   }
 
   useEffect(() => {
@@ -233,9 +229,9 @@ const DressCode = () => {
                     >
                               <div className="w-6 h-6 sm:w-8 sm:h-8 border border-gray-300 rounded cursor-pointer" style={{ backgroundColor: color }}></div>
                               {activeTooltip === `sponsors-${index}` && (
-                                <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 bg-burgundy-dark text-white text-xs rounded whitespace-nowrap z-[9999] pointer-events-none color-swatch-tooltip" style={{ position: 'absolute' }}>
+                                <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 text-white text-xs rounded whitespace-nowrap z-[9999] pointer-events-none color-swatch-tooltip" style={{ position: 'absolute', backgroundColor: BURGUNDY }}>
                                   {colorNames[color]}
-                                  <div className="absolute top-full left-1/2 transform -translate-x-1/2 -mt-1 border-4 border-transparent border-t-burgundy-dark"></div>
+                                  <div className="absolute top-full left-1/2 transform -translate-x-1/2 -mt-1 border-4 border-transparent" style={{ borderTopColor: BURGUNDY }}></div>
                       </div>
                               )}
                     </div>
@@ -315,7 +311,7 @@ const DressCode = () => {
                         )}
                         
                         {/* Color Swatches */}
-                        <div className="flex justify-start lg-custom:justify-start" style={{ gap: '-4px' }}>
+                        <div className="flex justify-start lg-custom:justify-start gap-2 sm:gap-3">
                           {guestColors.map((color, index) => (
                             <div
                               key={index}
@@ -323,13 +319,12 @@ const DressCode = () => {
                               onMouseEnter={() => setActiveTooltip(`guests-${index}`)}
                               onMouseLeave={() => setActiveTooltip(null)}
                               onClick={() => setActiveTooltip(activeTooltip === `guests-${index}` ? null : `guests-${index}`)}
-                              style={{ marginLeft: index > 0 ? '-8px' : '0' }}
                             >
                               <div className="w-6 h-6 sm:w-8 sm:h-8 border border-gray-300 rounded cursor-pointer" style={{ backgroundColor: color }}></div>
                               {activeTooltip === `guests-${index}` && (
-                                <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 bg-burgundy-dark text-white text-xs rounded whitespace-nowrap z-[9999] pointer-events-none color-swatch-tooltip" style={{ position: 'absolute' }}>
+                                <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 text-white text-xs rounded whitespace-nowrap z-[9999] pointer-events-none color-swatch-tooltip" style={{ position: 'absolute', backgroundColor: BURGUNDY }}>
                                   {colorNames[color]}
-                                  <div className="absolute top-full left-1/2 transform -translate-x-1/2 -mt-1 border-4 border-transparent border-t-burgundy-dark"></div>
+                                  <div className="absolute top-full left-1/2 transform -translate-x-1/2 -mt-1 border-4 border-transparent" style={{ borderTopColor: BURGUNDY }}></div>
                                 </div>
                               )}
                             </div>

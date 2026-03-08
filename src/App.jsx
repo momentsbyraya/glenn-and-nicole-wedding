@@ -1,22 +1,23 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, lazy, Suspense } from 'react'
 import { Routes, Route, useNavigate } from 'react-router-dom'
 import './App.css'
 import Home from './components/Home'
 import Footer from './components/Footer'
 import RSVPModal from './components/RSVPModal'
 import DynamicTitle from './components/DynamicTitle'
-// import OpeningScreen from './components/OpeningScreen'
 import Loader from './components/Loader'
+import OpeningScreen from './components/OpeningScreen'
 import Watermark from './components/Watermark'
 import ScrollToTop from './components/ScrollToTop'
-import Details from './components/pages/Details'
-import Entourage from './components/pages/Entourage'
-import Moments from './components/pages/Moments'
 import { AudioProvider, useAudio } from './contexts/AudioContext'
+
+const Details = lazy(() => import('./components/pages/Details'))
+const Entourage = lazy(() => import('./components/pages/Entourage'))
+const Moments = lazy(() => import('./components/pages/Moments'))
 
 function AppContent() {
   const [isRSVPModalOpen, setIsRSVPModalOpen] = useState(false)
-  const [showInvitation, setShowInvitation] = useState(false) // Set to false to show opening screen
+  const [showInvitation, setShowInvitation] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
   const { play } = useAudio()
   const navigate = useNavigate()
@@ -26,13 +27,13 @@ function AppContent() {
     const preloadImages = async () => {
       const criticalImages = [
         // Hero image - most important
-        '/assets/images/prenup/prenup5.jpg',  // Hero image
-        // NavIndex images - all prenup photos used on home page
-        '/assets/images/prenup/Proposal 5.jpg',  // Polaroid image
-        '/assets/images/prenup/Proposal 1.jpg',  // RSVP container
-        '/assets/images/prenup/Proposal 2.jpg',  // Moments polaroid 1
-        '/assets/images/prenup/Proposal 4.jpg',  // Moments polaroid 2
-        '/assets/images/prenup/prenup11.jpg',   // Save The Date countdown background
+        '/assets/images/prenup/DE_00574.jpg',  // Hero image
+        // NavIndex images - prenup photos used on home page
+        '/assets/images/prenup/DE_00873.jpg',  // Polaroid image
+        '/assets/images/prenup/DE_00846.jpg',  // RSVP container
+        '/assets/images/prenup/DE_00876.jpg',  // Moments polaroid 1
+        '/assets/images/prenup/DE_00817.jpg',  // Moments polaroid 2
+        '/assets/images/prenup/DSC06257.jpg',  // Save The Date countdown background
         // NavIndex graphics - all decorative elements
         '/assets/images/graphics/dusty-blue.png',
         '/assets/images/graphics/flower-1.png',
@@ -115,7 +116,7 @@ function AppContent() {
             // Check if we're on the home page
             if (window.location.pathname === '/' || window.location.pathname === '') {
               // Look for hero image
-              const heroImg = document.querySelector('img[src="/assets/images/prenup/prenup5.jpg"]')
+              const heroImg = document.querySelector('img[src="/assets/images/prenup/DE_00574.jpg"]')
               if (heroImg) {
                 // Check if image is loaded and visible
                 if (heroImg.complete && heroImg.naturalHeight > 0) {
@@ -191,19 +192,21 @@ function AppContent() {
           <Loader />
         </div>
       )}
-      {/* OpeningScreen - shows after loading, before invitation */}
-      {/* {!isLoading && !showInvitation && (
+      {/* Opening screen - envelope with "Click me!"; shows after loading until user opens */}
+      {!isLoading && !showInvitation && (
         <OpeningScreen onEnvelopeOpen={handleEnvelopeOpen} />
-      )} */}
+      )}
       {/* Main content - shows after invitation is opened (stamp clicked) */}
-      {!isLoading && (
+      {!isLoading && showInvitation && (
         <>
-          <Routes>
-            <Route path="/" element={<Home onOpenRSVP={() => setIsRSVPModalOpen(true)} />} />
-            <Route path="/details" element={<Details />} />
-            <Route path="/entourage" element={<Entourage />} />
-            <Route path="/moments" element={<Moments />} />
-          </Routes>
+          <Suspense fallback={<Loader />}>
+            <Routes>
+              <Route path="/" element={<Home onOpenRSVP={() => setIsRSVPModalOpen(true)} />} />
+              <Route path="/details" element={<Details />} />
+              <Route path="/entourage" element={<Entourage />} />
+              <Route path="/moments" element={<Moments />} />
+            </Routes>
+          </Suspense>
           <Footer />
         </>
       )}

@@ -20,6 +20,8 @@ const EntourageSection = () => {
   const bibleBearerRef = useRef(null)
   const ringBearerRef = useRef(null)
   const coinBearerRef = useRef(null)
+  const bannerBearerRef = useRef(null)
+  const flowerGirlsRef = useRef(null)
   const flowerBoysRef = useRef(null)
   const hereComesTheBrideRef = useRef(null)
   const veilSponsorsRef = useRef(null)
@@ -120,8 +122,8 @@ const EntourageSection = () => {
       }
     })
     
-    // Bible Bearer, Ring Bearer, Coin Bearer, Flower Boys - collect (single column - one name per row)
-    const bearerRefs = [bibleBearerRef, ringBearerRef, coinBearerRef, flowerBoysRef].filter(ref => ref.current)
+    // Bible Bearer, Ring Bearer, Coin Bearer, Banner Bearer, Flower Boys - collect (single column - one name per row)
+    const bearerRefs = [bibleBearerRef, ringBearerRef, coinBearerRef, bannerBearerRef, flowerBoysRef].filter(ref => ref.current)
       bearerRefs.forEach(ref => {
         const names = ref.current.querySelectorAll('p.font-poppins')
       if (names.length > 0) {
@@ -133,6 +135,18 @@ const EntourageSection = () => {
       }
     })
     
+    // Flower Girls - collect (single column)
+    if (flowerGirlsRef.current) {
+      const names = flowerGirlsRef.current.querySelectorAll('p.font-poppins')
+      if (names.length > 0) {
+        gsap.set(names, { opacity: 0, y: 20 })
+        Array.from(names).forEach(name => {
+          allNameRows.push({ elements: [name], time: currentTime })
+          currentTime += 0.1
+        })
+      }
+    }
+
     // Groomsmen + Bridesmaids - collect rows
     if (secondarySponsorsRef.current) {
       const groomsmenElements = secondarySponsorsRef.current?.querySelectorAll('.groomsmen-item')
@@ -225,6 +239,7 @@ const EntourageSection = () => {
   const bibleBearer = entourage.entourageList.find(item => item.category === "Bible Bearer")
   const ringBearer = entourage.entourageList.find(item => item.category === "Ring Bearer")
   const coinBearer = entourage.entourageList.find(item => item.category === "Coin Bearer")
+  const bannerBearer = entourage.entourageList.find(item => item.category === "Banner Bearer")
   const flowerBoys = entourage.entourageList.find(item => item.category === "Flower Boys")
   const hereComesTheBride = entourage.entourageList.find(item => item.category === "Here comes the bride")
   const veilSponsors = entourage.entourageList.find(item => item.category === "Veil Sponsors")
@@ -403,45 +418,55 @@ const EntourageSection = () => {
             )}
           </div>
 
-          {/* RING BEARER - Centered */}
-          {ringBearer && (
-            <div ref={ringBearerRef} className="flex flex-col gap-1 justify-center items-center">
-              <p className="text-[10px] sm:text-[13px] md:text-[15px] caudex-bold mb-2 text-center uppercase" style={{ color: themeConfig.text.sageGreen }}>Ring Bearer</p>
-              {ringBearer.names && ringBearer.names.map((name, index) => (
-                <p key={index} className="text-[8.5px] sm:text-[12px] md:text-[14px] font-poppins uppercase text-burgundy-dark text-center">{name}</p>
-              ))}
-            </div>
-          )}
-
-          {/* BIBLE BEARER - Centered */}
-          {bibleBearer && (
-            <div ref={bibleBearerRef} className="flex flex-col gap-1 justify-center items-center">
-              <p className="text-[10px] sm:text-[13px] md:text-[15px] caudex-bold mb-2 text-center uppercase" style={{ color: themeConfig.text.sageGreen }}>Bible Bearer</p>
-              {bibleBearer.names && bibleBearer.names.map((name, index) => (
-                <p key={index} className="text-[8.5px] sm:text-[12px] md:text-[14px] font-poppins uppercase text-burgundy-dark text-center">{name}</p>
-              ))}
-            </div>
-          )}
-
-          {/* COIN BEARER - Centered */}
-          {coinBearer && (
-            <div ref={coinBearerRef} className="flex flex-col gap-1 justify-center items-center">
-              <p className="text-[10px] sm:text-[13px] md:text-[15px] caudex-bold mb-2 text-center uppercase" style={{ color: themeConfig.text.sageGreen }}>Coin Bearer</p>
-              {coinBearer.names && coinBearer.names.map((name, index) => (
-                <p key={index} className="text-[8.5px] sm:text-[12px] md:text-[14px] font-poppins uppercase text-burgundy-dark text-center">{name}</p>
-              ))}
-            </div>
-          )}
-
           {/* FLOWER GIRLS - Centered */}
           {flowerGirls && (
-            <div className="flex flex-col gap-1 justify-center items-center">
+            <div ref={flowerGirlsRef} className="flex flex-col gap-1 justify-center items-center">
               <p className="text-[10px] sm:text-[13px] md:text-[15px] caudex-bold mb-2 text-center uppercase" style={{ color: themeConfig.text.sageGreen }}>Flower Girls</p>
               {flowerGirls.names && flowerGirls.names.map((name, index) => (
                 <p key={index} className="text-[8.5px] sm:text-[12px] md:text-[14px] font-poppins uppercase text-burgundy-dark text-center">{name}</p>
               ))}
             </div>
           )}
+
+          {/* COIN BEARER | BIBLE BEARER - Two columns */}
+          <div className="flex flex-row gap-6 sm:gap-10 justify-center items-start">
+            {coinBearer && (
+              <div ref={coinBearerRef} className="flex-1 min-w-0 flex flex-col gap-1 items-center">
+                <p className="text-[10px] sm:text-[13px] md:text-[15px] caudex-bold mb-2 text-center uppercase" style={{ color: themeConfig.text.sageGreen }}>Coin Bearer</p>
+                {coinBearer.names && coinBearer.names.map((name, index) => (
+                  <p key={index} className="text-[8.5px] sm:text-[12px] md:text-[14px] font-poppins uppercase text-burgundy-dark text-center">{name}</p>
+                ))}
+              </div>
+            )}
+            {bibleBearer && (
+              <div ref={bibleBearerRef} className="flex-1 min-w-0 flex flex-col gap-1 items-center">
+                <p className="text-[10px] sm:text-[13px] md:text-[15px] caudex-bold mb-2 text-center uppercase" style={{ color: themeConfig.text.sageGreen }}>Bible Bearer</p>
+                {bibleBearer.names && bibleBearer.names.map((name, index) => (
+                  <p key={index} className="text-[8.5px] sm:text-[12px] md:text-[14px] font-poppins uppercase text-burgundy-dark text-center">{name}</p>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* RING BEARER | BANNER BEARER - Two columns */}
+          <div className="flex flex-row gap-6 sm:gap-10 justify-center items-start">
+            {ringBearer && (
+              <div ref={ringBearerRef} className="flex-1 min-w-0 flex flex-col gap-1 items-center">
+                <p className="text-[10px] sm:text-[13px] md:text-[15px] caudex-bold mb-2 text-center uppercase" style={{ color: themeConfig.text.sageGreen }}>Ring Bearer</p>
+                {ringBearer.names && ringBearer.names.map((name, index) => (
+                  <p key={index} className="text-[8.5px] sm:text-[12px] md:text-[14px] font-poppins uppercase text-burgundy-dark text-center">{name}</p>
+                ))}
+              </div>
+            )}
+            {bannerBearer && (
+              <div ref={bannerBearerRef} className="flex-1 min-w-0 flex flex-col gap-1 items-center">
+                <p className="text-[10px] sm:text-[13px] md:text-[15px] caudex-bold mb-2 text-center uppercase" style={{ color: themeConfig.text.sageGreen }}>Banner Bearer</p>
+                {bannerBearer.names && bannerBearer.names.map((name, index) => (
+                  <p key={index} className="text-[8.5px] sm:text-[12px] md:text-[14px] font-poppins uppercase text-burgundy-dark text-center">{name}</p>
+                ))}
+              </div>
+            )}
+          </div>
 
             </div>
           </div>

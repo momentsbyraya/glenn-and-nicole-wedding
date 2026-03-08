@@ -1,23 +1,35 @@
 {
   "title": "Our Love Story",
-  "content": "He was my student during my internship, seated by the window with sunlight resting on his quiet smile.\n\nWhat started as simple lessons and after-class questions slowly turned into shared laughter and lingering glances.\n\nSomewhere between lectures and campus hallways, we found something sweeter than we ever planned — each other. 💗",
+  "content": "Our story began quietly, through a simple connection between family and work. What started as casual conversations soon turned into late-night chats and shared laughter.\n\nA brave decision to finally meet led to five months of courtship—filled with patience, sincerity, and growing certainty. On September 28, 2024, we chose each other.\n\nOur journey was not always easy. There were doubts, resistance, and moments when love was questioned by the voices around us. There were times when loving felt like fighting.\n\nBut instead of breaking us, those challenges strengthened our bond. Bitoy chose love—again and again—and together, we stood firm when it would have been easier to walk away.\n\nWhat we built was tested, proven, and refined. Now, with hearts fuller and faith stronger, we look forward to forever—and to the day we make it official.\n\nOn April 18, 2026, we say \"I do\"—not because love was easy, but because it was worth everything. That is our promise to each other.",
   "timeline": [
     {
       "title": "The Beginning",
-      "date": "Internship",
-      "description": "He was my student during my internship, seated by the window with sunlight resting on his quiet smile.",
+      "date": "Family & Work",
+      "description": "Our story began quietly, through a simple connection between family and work. Casual conversations turned into late-night chats, shared laughter, and a brave decision to finally meet.",
       "image": "couple2"
     },
     {
-      "title": "Lessons & Laughter",
-      "date": "Getting to Know",
-      "description": "What started as simple lessons and after-class questions slowly turned into shared laughter and lingering glances.",
+      "title": "Five Months of Courtship",
+      "date": "Patience & Certainty",
+      "description": "Five months of courtship followed—filled with patience, sincerity, and growing certainty.",
       "image": "couple4"
     },
     {
-      "title": "Finding Each Other",
-      "date": "Our Story",
-      "description": "Somewhere between lectures and campus hallways, we found something sweeter than we ever planned — each other. 💗",
+      "title": "We Chose Each Other",
+      "date": "September 28, 2024",
+      "description": "On September 28, 2024, we chose each other.",
+      "image": "couple7"
+    },
+    {
+      "title": "Tested & Proven",
+      "date": "Stronger Together",
+      "description": "Our journey was not always easy. There were doubts and resistance, but instead of breaking us, those challenges strengthened our bond. Bitoy chose love—again and again—and together, we stood firm.",
+      "image": "couple2"
+    },
+    {
+      "title": "Forever",
+      "date": "April 18, 2026",
+      "description": "Now, with hearts fuller and faith stronger, we look forward to forever. On April 18, 2026, we say \"I do\"—not because love was easy, but because it was worth everything.",
       "image": "couple7"
     }
   ]

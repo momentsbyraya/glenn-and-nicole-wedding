@@ -1,28 +1,28 @@
 {
   "bride": {
-    "firstName": "Heece",
-    "lastName": "Molina",
-    "fullName": "HEECE CABADONGA MOLINA"
+    "firstName": "Charmaine",
+    "lastName": "Madrona",
+    "fullName": "CHARMAINE Y. MADRONA"
   },
   "groom": {
-    "firstName": "Joshua",
-    "lastName": "Andres",
-    "fullName": "JOSHUA LACERNA ANDRES"
+    "firstName": "Jolly Dane",
+    "lastName": "Dagwat",
+    "fullName": "JOLLY DANE S. DAGWAT"
   },
-  "together": "Heece & Joshua",
-  "nickname": "Heece and Joshua",
+  "together": "Jolly Dane & Charmaine",
+  "nickname": "Jolly Dane and Charmaine",
   "wedding": {
-    "date": "2026-05-08",
+    "date": "2026-04-18",
     "time": "3:00 PM",
-    "dayOfWeek": "Friday",
-    "month": "May",
-    "day": "8",
+    "dayOfWeek": "Saturday",
+    "month": "April",
+    "day": "18",
     "year": "2026"
   },
   "rsvpDeadline": {
-    "date": "2026-04-30",
+    "date": "2026-04-13",
     "month": "April",
-    "day": "30",
+    "day": "13",
     "year": "2026"
   }
 }

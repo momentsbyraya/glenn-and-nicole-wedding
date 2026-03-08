@@ -34,6 +34,7 @@ const EntourageDetailsSection = () => {
   const bibleBearer = entourage.entourageList.find(item => item.category === 'Bible Bearer')
   const ringBearer = entourage.entourageList.find(item => item.category === 'Ring Bearer')
   const coinBearer = entourage.entourageList.find(item => item.category === 'Coin Bearer')
+  const bannerBearer = entourage.entourageList.find(item => item.category === 'Banner Bearer')
   const flowerGirls = entourage.entourageList.find(item => item.category === 'Flower Girls')
 
   useEffect(() => {
@@ -285,40 +286,56 @@ const EntourageDetailsSection = () => {
           </div>
         )}
 
-        {/* Bible / Ring / Coin Bearer & Flower Girls */}
-        {(bibleBearer || ringBearer || coinBearer || flowerGirls) && (
+        {/* Flower Girls / Coin & Bible / Ring & Banner Bearer */}
+        {(flowerGirls || bibleBearer || ringBearer || coinBearer || bannerBearer) && (
           <div className="mb-6">
             <div className="flex flex-col gap-4 justify-center items-center mt-4">
-              {bibleBearer && (
-                <div ref={bibleBearerRef}>
-                  <p className="text-[10px] sm:text-sm md:text-base alice-regular mb-2 text-center uppercase" style={{ color: accentColor }}>Bible Bearer</p>
-                  {bibleBearer.names?.map((name, index) => (
-                    <p key={index} className="text-[10px] sm:text-sm md:text-base font-poppins uppercase text-burgundy-dark text-center">{name}</p>
-                  ))}
-                </div>
-              )}
-              {ringBearer && (
-                <div ref={ringBearerRef}>
-                  <p className="text-[10px] sm:text-sm md:text-base alice-regular mb-2 text-center uppercase" style={{ color: accentColor }}>Ring Bearer</p>
-                  {ringBearer.names?.map((name, index) => (
-                    <p key={index} className="text-[10px] sm:text-sm md:text-base font-poppins uppercase text-burgundy-dark text-center">{name}</p>
-                  ))}
-                </div>
-              )}
-              {coinBearer && (
-                <div ref={coinBearerRef}>
-                  <p className="text-[10px] sm:text-sm md:text-base alice-regular mb-2 text-center uppercase" style={{ color: accentColor }}>Coin Bearer</p>
-                  {coinBearer.names?.map((name, index) => (
-                    <p key={index} className="text-[10px] sm:text-sm md:text-base font-poppins uppercase text-burgundy-dark text-center">{name}</p>
-                  ))}
-                </div>
-              )}
               {flowerGirls && (
                 <div ref={flowerGirlsRef}>
                   <p className="text-[10px] sm:text-sm md:text-base alice-regular mb-2 text-center uppercase" style={{ color: accentColor }}>Flower Girls</p>
                   {flowerGirls.names?.map((name, index) => (
                     <p key={index} className="text-[10px] sm:text-sm md:text-base font-poppins uppercase text-burgundy-dark text-center">{name}</p>
                   ))}
+                </div>
+              )}
+              {(coinBearer || bibleBearer) && (
+                <div className="flex flex-row gap-6 sm:gap-10 justify-center items-start w-full max-w-md">
+                  {coinBearer && (
+                    <div ref={coinBearerRef} className="flex-1 flex flex-col items-center">
+                      <p className="text-[10px] sm:text-sm md:text-base alice-regular mb-2 text-center uppercase" style={{ color: accentColor }}>Coin Bearer</p>
+                      {coinBearer.names?.map((name, index) => (
+                        <p key={index} className="text-[10px] sm:text-sm md:text-base font-poppins uppercase text-burgundy-dark text-center">{name}</p>
+                      ))}
+                    </div>
+                  )}
+                  {bibleBearer && (
+                    <div ref={bibleBearerRef} className="flex-1 flex flex-col items-center">
+                      <p className="text-[10px] sm:text-sm md:text-base alice-regular mb-2 text-center uppercase" style={{ color: accentColor }}>Bible Bearer</p>
+                      {bibleBearer.names?.map((name, index) => (
+                        <p key={index} className="text-[10px] sm:text-sm md:text-base font-poppins uppercase text-burgundy-dark text-center">{name}</p>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              )}
+              {(ringBearer || bannerBearer) && (
+                <div className="flex flex-row gap-6 sm:gap-10 justify-center items-start w-full max-w-md">
+                  {ringBearer && (
+                    <div ref={ringBearerRef} className="flex-1 flex flex-col items-center">
+                      <p className="text-[10px] sm:text-sm md:text-base alice-regular mb-2 text-center uppercase" style={{ color: accentColor }}>Ring Bearer</p>
+                      {ringBearer.names?.map((name, index) => (
+                        <p key={index} className="text-[10px] sm:text-sm md:text-base font-poppins uppercase text-burgundy-dark text-center">{name}</p>
+                      ))}
+                    </div>
+                  )}
+                  {bannerBearer && (
+                    <div className="flex-1 flex flex-col items-center">
+                      <p className="text-[10px] sm:text-sm md:text-base alice-regular mb-2 text-center uppercase" style={{ color: accentColor }}>Banner Bearer</p>
+                      {bannerBearer.names?.map((name, index) => (
+                        <p key={index} className="text-[10px] sm:text-sm md:text-base font-poppins uppercase text-burgundy-dark text-center">{name}</p>
+                      ))}
+                    </div>
+                  )}
                 </div>
               )}
             </div>

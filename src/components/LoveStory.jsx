@@ -22,16 +22,14 @@ const LoveStory = () => {
   // Split content into paragraphs
   const paragraphs = loveStory.content.split('\n\n').filter(p => p.trim())
 
-  // Polaroid images - 6 in story (2+2+2) + 2 below last paragraph (moment 5 & 6 = unused prenup5, prenup6)
+  // Polaroid images - 1 per paragraph (6 paragraphs)
   const polaroidImages = [
-    '/assets/images/prenup/prenup1.jpg',   // moment 1
-    '/assets/images/prenup/prenup2.jpg',   // moment 2
-    '/assets/images/prenup/prenup3.jpg',   // moment 3
-    '/assets/images/prenup/prenup7.jpg',   // moment 4
-    '/assets/images/prenup/prenup5.jpg',  // moment 5
-    '/assets/images/prenup/prenup6.jpg',   // moment 6
-    '/assets/images/prenup/prenup10.jpg',
-    '/assets/images/prenup/prenup11.jpg',
+    '/assets/images/prenup/DE_00873.jpg',
+    '/assets/images/prenup/DE_00846.jpg',
+    '/assets/images/prenup/DE_00876.jpg',
+    '/assets/images/prenup/DE_00817.jpg',
+    '/assets/images/prenup/DSC06257.jpg',
+    '/assets/images/prenup/DE_00903.jpg',
   ]
 
   useEffect(() => {
@@ -225,126 +223,64 @@ const LoveStory = () => {
             {loveStory.title}
           </span>
         </h3>
-        {/* Center decorative curved line + dot */}
-        <div className="flex justify-center my-8 sm:my-10 pointer-events-none" aria-hidden="true">
-          <div className="relative" style={{ width: '140px', height: '100px' }}>
-            <svg
-              width="140"
-              height="100"
-              viewBox="0 0 140 100"
-              fill="none"
-              className="absolute inset-0"
-              style={{ overflow: 'visible' }}
-            >
-              <path
-                d="M 70 0 Q 100 25, 70 50 Q 40 75, 70 100"
-                stroke="#5A1E2A"
-                strokeWidth="2"
-                fill="none"
-                strokeDasharray="6 5"
-                opacity="0.5"
-              />
-            </svg>
-            <div
-              className="absolute rounded-full"
-              style={{
-                width: '10px',
-                height: '10px',
-                left: '50%',
-                bottom: 0,
-                transform: 'translate(-50%, 50%)',
-                backgroundColor: '#5A1E2A',
-                opacity: 0.5,
-              }}
-            />
-          </div>
-        </div>
       </div>
 
       <div className="max-w-5xl mx-auto px-4 sm:px-6 md:px-8">
         <div className="relative">
           {/* Story content */}
-          <div className="relative z-10 space-y-16 sm:space-y-20 md:space-y-24">
+          <div className="relative z-10 flex flex-col gap-12 sm:gap-16 md:gap-20">
             {paragraphs.map((paragraph, index) => {
-              // 6 images in story: para 0 → 2, para 1 → 2, para 2 (last) → 2
-              const startImageIndex = index * 2
-              const isLast = index === paragraphs.length - 1
-              const imageCount = 2
-              const imageIndices = Array.from({ length: imageCount }, (_, i) => startImageIndex + i)
+              const photoLeft = index % 2 === 0
+              const image = polaroidImages[index]
 
               return (
-                <div key={index} className="story-item relative">
-                  {/* Curved connecting line and dot */}
-                  {!isLast && (
-                    <div className="absolute left-1/2 transform -translate-x-1/2 pointer-events-none" style={{ 
-                      bottom: '-4rem',
-                      width: '120px',
-                      height: '8rem',
-                      zIndex: 0
-                    }}>
-                      {/* Curved SVG line - S shape */}
-                      <svg 
-                        width="120" 
-                        height="100%" 
-                        viewBox="0 0 120 100" 
-                        preserveAspectRatio="none"
-                        className="absolute inset-0"
-                        style={{ overflow: 'visible' }}
-                      >
-                        <path
-                          d="M 60 0 Q 40 25, 60 50 T 60 100"
-                          stroke="#5A1E2A"
-                          strokeWidth="2"
-                          fill="none"
-                          strokeDasharray="4,4"
-                          opacity="0.4"
-                        />
-                      </svg>
-                      {/* Dot at bottom center */}
-                      <div 
-                        className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-3 h-3 rounded-full"
-                        style={{ 
-                          backgroundColor: '#5A1E2A',
-                          opacity: 0.45
-                        }}
-                      />
-                    </div>
-                  )}
-
-                  {/* Each row: polaroids (if any) then paragraph */}
-                  <div className="flex flex-col sm:flex-row items-center gap-6 sm:gap-8">
-                    {imageCount > 0 && (
-                      <div className="flex gap-4 sm:gap-6 justify-center flex-1">
-                        {imageIndices.map((imgIdx, i) => polaroidImages[imgIdx] && (
+                <div
+                  key={index}
+                  className="story-item grid w-full gap-4 sm:gap-6 md:gap-8 items-center min-h-0"
+                  style={{
+                    gridTemplateColumns: photoLeft ? '2fr 3fr' : '3fr 2fr',
+                  }}
+                >
+                  {photoLeft ? (
+                    <>
+                      <div className="flex justify-center items-center min-w-0">
+                        {image && (
                           <Polaroid
-                            key={imgIdx}
-                            image={polaroidImages[imgIdx]}
-                            rotation={i === 0 ? -5 : 5}
-                            index={imgIdx}
+                            image={image}
+                            rotation={-3}
+                            index={index}
                             size="normal"
                           />
-                        ))}
+                        )}
                       </div>
-                    )}
-                    <div className={`text-center sm:text-left ${imageCount > 0 ? 'flex-1' : 'w-full'}`}>
-                      <p className="text-base sm:text-lg font-albert font-thin text-burgundy-dark leading-relaxed">
-                        {formatParagraph(paragraph)}
-                      </p>
-                    </div>
-                  </div>
+                      <div className="flex items-center min-w-0">
+                        <p className="text-xs sm:text-sm font-albert font-thin text-burgundy-dark leading-relaxed text-left w-full">
+                          {formatParagraph(paragraph)}
+                        </p>
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <div className="flex items-center min-w-0">
+                        <p className="text-xs sm:text-sm font-albert font-thin text-burgundy-dark leading-relaxed text-right w-full">
+                          {formatParagraph(paragraph)}
+                        </p>
+                      </div>
+                      <div className="flex justify-center items-center min-w-0">
+                        {image && (
+                          <Polaroid
+                            image={image}
+                            rotation={3}
+                            index={index}
+                            size="normal"
+                          />
+                        )}
+                      </div>
+                    </>
+                  )}
                 </div>
               )
             })}
-
-            {/* 2 images below the last story paragraph */}
-            <div className="story-item flex justify-center gap-6 sm:gap-8 mt-16 sm:mt-20">
-              {polaroidImages[6] && (
-                <Polaroid image={polaroidImages[6]} rotation={-4} index={6} />
-              )}
-              {polaroidImages[7] && (
-                <Polaroid image={polaroidImages[7]} rotation={4} index={7} />
-              )}
-            </div>
           </div>
         </div>
       </div>

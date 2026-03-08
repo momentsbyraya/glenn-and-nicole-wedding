@@ -65,11 +65,11 @@ const SaveTheDateCounter = () => {
   return (
     <section
       ref={sectionRef}
-      className="relative w-full py-8 sm:py-12 md:py-16 lg:py-20"
+      className="relative w-full py-8 sm:py-12 md:py-16 lg:py-20 min-h-[50vh] sm:min-h-[55vh] md:min-h-[60vh] lg:min-h-[65vh] flex flex-col justify-center"
       style={{
-        backgroundImage: 'url(/assets/images/prenup/prenup11.jpg)',
+        backgroundImage: 'url(/assets/images/prenup/DE_00846.jpg)',
         backgroundSize: 'cover',
-        backgroundPosition: 'center',
+        backgroundPosition: 'center center',
         backgroundRepeat: 'no-repeat'
       }}
     >
