@@ -152,8 +152,51 @@
 }
 
 /* Gift Registry */
-.gift-registry-scroll::-webkit-scrollbar {
+.gift-registry-scroll::-webkit-scrollbar,
+.venue-cards-container::-webkit-scrollbar {
   display: none;
+}
+
+/* Gift carousel (mobile): infinite horizontal scroll */
+.gift-carousel-viewport {
+  width: 100%;
+  touch-action: pan-y pinch-zoom;
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: grab;
+}
+.gift-carousel-viewport:active {
+  cursor: grabbing;
+}
+.gift-carousel-track {
+  width: max-content;
+}
+.gift-carousel-card {
+  aspect-ratio: auto;
+}
+.gift-carousel-card img {
+  pointer-events: auto;
+}
+
+/* Venue carousel (mobile): same moving behavior as gift */
+.venue-carousel-viewport {
+  width: 100%;
+  touch-action: pan-y pinch-zoom;
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: grab;
+}
+.venue-carousel-viewport:active {
+  cursor: grabbing;
+}
+.venue-carousel-track {
+  width: max-content;
+}
+.venue-carousel-track .venue-image-card {
+  aspect-ratio: auto;
+}
+.venue-carousel-track .venue-image-card img {
+  pointer-events: auto;
 }
 
 .gift-registry-title-text {

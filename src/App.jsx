@@ -7,7 +7,6 @@ import RSVPModal from './components/RSVPModal'
 import DynamicTitle from './components/DynamicTitle'
 import Loader from './components/Loader'
 import OpeningScreen from './components/OpeningScreen'
-import Watermark from './components/Watermark'
 import ScrollToTop from './components/ScrollToTop'
 import { AudioProvider, useAudio } from './contexts/AudioContext'
 
@@ -184,7 +183,6 @@ function AppContent() {
   return (
     <div className="App min-h-screen wedding-gradient">
       <DynamicTitle />
-      <Watermark />
       <ScrollToTop />
       {/* Loader - shows while preloading */}
       {isLoading && (
