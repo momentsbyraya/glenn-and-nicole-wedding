@@ -1,5 +1,5 @@
-// Theme Configuration - Light pink + light blue only
-// #F4C6CF light pink | #B8D4E8 / #D4E5F4 light blue | #7BA3C4 darker blue (text)
+// Theme Configuration - Dark blue + dark pink for text
+// #1e3a5f dark blue (text, headings) | #B76E79 dark pink (text, accents)
 export const themeConfig = {
     // Background Colors
     backgrounds: {
@@ -12,7 +12,7 @@ export const themeConfig = {
         crumpledPaper: 'bg-[url("/assets/images/crumpled-paper.png")] bg-cover bg-center bg-no-repeat',
     },
 
-    // Text Colors
+    // Text Colors (dark blue + dark pink)
     text: {
         primary: 'text-burgundy-dark',
         secondary: 'text-burgundy-tan',
@@ -22,13 +22,15 @@ export const themeConfig = {
         theme: 'text-burgundy-wine',
         pause: 'text-[#FFFBFB]',
         custom: 'text-burgundy-dark',
-        light: '#F4C6CF',
-        lightBlack: '#7BA3C4',
+        light: '#B76E79',
+        lightBlack: '#1e3a5f',
         cream: '#FFFBFB',
-        tan: '#F4C6CF',
+        tan: '#B76E79',
         wine: '#B8D4E8',
-        burgundyDark: '#7BA3C4',
-        burntOrange: '#7BA3C4',
+        burgundyDark: '#1e3a5f',
+        burntOrange: '#1e3a5f',
+        darkBlue: '#1e3a5f',
+        darkPink: '#B76E79',
     },
 
     // Border Colors
@@ -81,24 +83,24 @@ export const themeConfig = {
         garden: 'bg-burgundy-cream',
     },
 
-    // Custom CSS Variables (pastel)
+    // Custom CSS Variables (dark blue + dark pink for text)
     cssVariables: {
-        '--primary-bg': '#7BA3C4',
+        '--primary-bg': '#1e3a5f',
         '--secondary-bg': '#B8D4E8',
         '--accent-bg': '#B8D4E8',
-        '--accent-hover': '#F4C6CF',
-        '--primary-text': '#7BA3C4',
-        '--secondary-text': '#F4C6CF',
+        '--accent-hover': '#B76E79',
+        '--primary-text': '#1e3a5f',
+        '--secondary-text': '#B76E79',
         '--accent-text': '#B8D4E8',
-        '--muted-text': '#F4C6CF',
-        '--border-color': '#7BA3C4',
+        '--muted-text': '#B76E79',
+        '--border-color': '#1e3a5f',
         '--custom-theme': '#B8D4E8',
         '--cream': '#FFFBFB',
-        '--tan': '#F4C6CF',
+        '--tan': '#B76E79',
         '--wine': '#B8D4E8',
-        '--burgundy-dark': '#7BA3C4',
+        '--burgundy-dark': '#1e3a5f',
         '--garden-bg': '#FFFBFB',
-        '--blush': '#F4C6CF',
+        '--blush': '#B76E79',
         '--powder-blue': '#D4E5F4',
     }
 }

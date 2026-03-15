@@ -14,12 +14,18 @@
 
 .venue-title-text {
   line-height: 0.8;
-  color: #7BA3C4;
+  color: #1e3a5f;
 }
 
 /* Venue Image Container */
 .venue-image-container {
   aspect-ratio: 1 / 1;
+}
+
+/* Venue carousel card body - text uses slide accent (dark blue / dark pink) */
+.venue-card-body,
+.venue-card-body * {
+  color: inherit;
 }
 
 /* On screens 992px and above, venue content container should fit content height */
@@ -48,19 +54,20 @@
 
 .program-title-text {
   line-height: 0.8;
-  color: #FFFBFB;
+  color: #1e3a5f;
   display: block;
   text-align: center;
 }
 
 .program-description {
   width: 80%;
+  color: #B76E79 !important;
 }
 
 /* Date Selector */
 .date-month-year {
   font-style: italic;
-  color: #F4C6CF;
+  color: #B76E79;
 }
 
 .heart-day-number {
@@ -73,22 +80,22 @@
 }
 
 .timeline-event-time {
-  color: #FFFBFB;
+  color: #1e3a5f;
 }
 
 .timeline-event-description {
-  color: #FFFBFB;
+  color: #B76E79;
 }
 
 /* Dress Code */
 .dress-code-title-text {
   line-height: 0.8;
-  color: #7BA3C4;
+  color: #1e3a5f;
   white-space: nowrap;
 }
 
 .dress-code-description {
-  color: #7BA3C4;
+  color: #1e3a5f;
 }
 
 .dress-code-image-container {
@@ -201,7 +208,7 @@
 
 .gift-registry-title-text {
   line-height: 0.8;
-  color: #7BA3C4;
+  color: #1e3a5f;
 }
 
 .gift-button {
@@ -220,7 +227,7 @@
 
 .upload-title-text {
   line-height: 0.8;
-  color: #7BA3C4;
+  color: #1e3a5f;
 }
 
 .upload-qr-container {
@@ -250,16 +257,24 @@
 
 .faq-title-text {
   line-height: 0.8;
-  color: #FFFFFF;
+  color: #1e3a5f;
 }
 
 .faq-section .text-burgundy-cream,
 .faq-section .font-albert {
-  color: #FFFFFF !important;
+  color: #1e3a5f !important;
+}
+
+.faq-section .faq-question-bold {
+  color: #1e3a5f !important;
+}
+
+.faq-section p.font-thin {
+  color: #B76E79 !important;
 }
 
 .faq-section .h-px {
-  background-color: rgba(255, 255, 255, 0.3);
+  background-color: rgba(30, 58, 95, 0.25);
 }
 
 /* Modal */

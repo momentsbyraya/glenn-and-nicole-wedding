@@ -127,7 +127,7 @@ const SaveTheDateCounter = () => {
           <h2
             ref={titleRef}
             className="font-foglihten text-3xl sm:text-4xl md:text-5xl lg:text-6xl capitalize"
-            style={{ color: themeConfig.text.burntOrange }}
+            style={{ color: themeConfig.text.darkBlue }}
           >
             Save The Date
           </h2>
@@ -137,37 +137,37 @@ const SaveTheDateCounter = () => {
         <div ref={countdownLabelsRef}>
         <div ref={countdownRef} className="flex justify-center items-center space-x-3 sm:space-x-4 md:space-x-6 px-4">
           <div className="text-center">
-            <div className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-albert font-semibold mb-1 countdown-number tabular-nums" style={{ color: '#7BA3C4', opacity: 1 }}>
+            <div className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-albert font-semibold mb-1 countdown-number tabular-nums" style={{ color: '#1e3a5f', opacity: 1 }}>
               {countdown.days}
             </div>
-            <div className="text-xs sm:text-sm font-albert font-medium" style={{ color: '#7BA3C4', opacity: 0.9 }}>Days</div>
+            <div className="text-xs sm:text-sm font-albert font-medium" style={{ color: '#1e3a5f', opacity: 0.9 }}>Days</div>
           </div>
           
-          <div className="text-2xl sm:text-3xl md:text-4xl font-albert font-thin" style={{ color: '#7BA3C4' }}>:</div>
+          <div className="text-2xl sm:text-3xl md:text-4xl font-albert font-thin" style={{ color: '#1e3a5f' }}>:</div>
           
           <div className="text-center">
-            <div className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-albert font-semibold mb-1 countdown-number tabular-nums" style={{ color: '#7BA3C4', opacity: 1 }}>
+            <div className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-albert font-semibold mb-1 countdown-number tabular-nums" style={{ color: '#1e3a5f', opacity: 1 }}>
               {countdown.hours}
             </div>
-            <div className="text-xs sm:text-sm font-albert font-medium" style={{ color: '#7BA3C4', opacity: 0.9 }}>Hours</div>
+            <div className="text-xs sm:text-sm font-albert font-medium" style={{ color: '#1e3a5f', opacity: 0.9 }}>Hours</div>
           </div>
           
-          <div className="text-2xl sm:text-3xl md:text-4xl font-albert font-thin" style={{ color: '#7BA3C4' }}>:</div>
+          <div className="text-2xl sm:text-3xl md:text-4xl font-albert font-thin" style={{ color: '#1e3a5f' }}>:</div>
           
           <div className="text-center">
-            <div className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-albert font-semibold mb-1 countdown-number tabular-nums" style={{ color: '#7BA3C4', opacity: 1 }}>
+            <div className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-albert font-semibold mb-1 countdown-number tabular-nums" style={{ color: '#1e3a5f', opacity: 1 }}>
               {countdown.minutes}
             </div>
-            <div className="text-xs sm:text-sm font-albert font-medium" style={{ color: '#7BA3C4', opacity: 0.9 }}>Minutes</div>
+            <div className="text-xs sm:text-sm font-albert font-medium" style={{ color: '#1e3a5f', opacity: 0.9 }}>Minutes</div>
           </div>
           
-          <div className="text-2xl sm:text-3xl md:text-4xl font-albert font-thin" style={{ color: '#7BA3C4' }}>:</div>
+          <div className="text-2xl sm:text-3xl md:text-4xl font-albert font-thin" style={{ color: '#1e3a5f' }}>:</div>
           
           <div className="text-center">
-            <div className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-albert font-semibold mb-1 countdown-number tabular-nums" style={{ color: '#7BA3C4', opacity: 1 }}>
+            <div className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-albert font-semibold mb-1 countdown-number tabular-nums" style={{ color: '#1e3a5f', opacity: 1 }}>
               {countdown.seconds}
             </div>
-            <div className="text-xs sm:text-sm font-albert font-medium" style={{ color: '#7BA3C4', opacity: 0.9 }}>Seconds</div>
+            <div className="text-xs sm:text-sm font-albert font-medium" style={{ color: '#1e3a5f', opacity: 0.9 }}>Seconds</div>
           </div>
         </div>
         </div>

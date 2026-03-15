@@ -10,12 +10,12 @@ export default {
         'lg-custom': '992px',
       },
       colors: {
-        // Light pink + light blue only
+        // Dark blue + dark pink for text; cream/wine for backgrounds
         'burgundy': {
           cream: '#FFFBFB',   // Clean / white
-          tan: '#F4C6CF',     // Light pink
+          tan: '#B76E79',     // Dark pink (text, accents)
           wine: '#B8D4E8',    // Light blue (accents)
-          dark: '#7BA3C4',    // Darker light blue (text, headings)
+          dark: '#1e3a5f',    // Dark blue (text, headings)
         },
         'wedding': {
           50: '#FFFBFB',

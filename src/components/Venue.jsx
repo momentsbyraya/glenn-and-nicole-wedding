@@ -38,7 +38,7 @@ const Venue = () => {
       time: ceremony.time,
       googleMapsUrl: ceremony.googleMapsUrl,
       backgroundColor: '#E8F2FC',
-      accentColor: '#9EC9F5',
+      accentColor: '#1e3a5f',
     },
     {
       title: 'Reception',
@@ -47,7 +47,7 @@ const Venue = () => {
       time: reception.time ?? '',
       googleMapsUrl: reception.googleMapsUrl,
       backgroundColor: '#FDE8EF',
-      accentColor: '#F8C8DC',
+      accentColor: '#B76E79',
     },
   ]
 
@@ -170,7 +170,7 @@ const Venue = () => {
     <div ref={venueSectionRef} className="relative">
       <div ref={venueTitleRef}>
         <h3 className="relative inline-block px-6 venue-title text-center w-full">
-          <span className="font-foglihten text-3xl sm:text-4xl md:text-5xl lg:text-6xl inline-block leading-none capitalize" style={{ color: '#7BA3C4' }}>
+          <span className="font-foglihten text-3xl sm:text-4xl md:text-5xl lg:text-6xl inline-block leading-none capitalize" style={{ color: '#1e3a5f' }}>
             WHERE TO GO
           </span>
         </h3>
@@ -217,12 +217,15 @@ const Venue = () => {
                       draggable={false}
                     />
                   </div>
-                  {/* Card body - slide background and accent */}
-                  <div className="p-4 sm:p-5 text-center" style={{ backgroundColor: hexToRgba(slide.backgroundColor, 0.88) }}>
-                    <h4
-                      className="font-foglihten text-xl sm:text-2xl uppercase tracking-wide"
-                      style={{ color: slide.accentColor }}
-                    >
+                  {/* Card body - dark blue (ceremony) / dark pink (reception) text */}
+                  <div
+                    className="p-4 sm:p-5 text-center venue-card-body"
+                    style={{
+                      backgroundColor: hexToRgba(slide.backgroundColor, 0.88),
+                      color: slide.accentColor,
+                    }}
+                  >
+                    <h4 className="font-foglihten text-xl sm:text-2xl uppercase tracking-wide" style={{ color: slide.accentColor }}>
                       {slide.title}
                     </h4>
                     <div className="mt-2 text-base sm:text-lg font-boska" style={{ color: slide.accentColor }}>

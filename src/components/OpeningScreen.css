@@ -20,7 +20,7 @@
 .opening-screen-text {
   font-family: 'Nanum Myeongjo', serif;
   font-size: clamp(1rem, 2vw, 1.5rem);
-  color: #7BA3C4;
+  color: #1e3a5f;
   text-align: center;
   opacity: 0;
   cursor: default;

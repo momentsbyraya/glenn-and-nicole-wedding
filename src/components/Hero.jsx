@@ -188,10 +188,10 @@ const Hero = () => {
           <div className="flex flex-col items-center justify-center">
             {/* Groom's Name - full name */}
             <div>
-              <p ref={groomFirstNameRef} className="font-foglihten text-3xl sm:text-4xl md:text-5xl lg:text-6xl uppercase leading-tight" style={{ color: '#7BA3C4' }}>
+              <p ref={groomFirstNameRef} className="font-foglihten text-3xl sm:text-4xl md:text-5xl lg:text-6xl uppercase leading-tight" style={{ color: '#1e3a5f' }}>
                 {groomName.first}
               </p>
-              <p ref={groomLastNameRef} className="font-foglihten text-3xl sm:text-4xl md:text-5xl lg:text-6xl uppercase leading-tight -mt-2 sm:-mt-3" style={{ color: '#F4C6CF', textShadow: '0 1px 2px rgba(0,0,0,0.06)' }}>
+              <p ref={groomLastNameRef} className="font-foglihten text-3xl sm:text-4xl md:text-5xl lg:text-6xl uppercase leading-tight -mt-2 sm:-mt-3" style={{ color: '#B76E79', textShadow: '0 1px 2px rgba(0,0,0,0.06)' }}>
                 {groomName.last}
               </p>
             </div>
@@ -200,10 +200,10 @@ const Hero = () => {
             </p>
             {/* Bride's Name - full name */}
             <div>
-              <p ref={brideFirstNameRef} className="font-foglihten text-3xl sm:text-4xl md:text-5xl lg:text-6xl uppercase leading-tight" style={{ color: '#7BA3C4' }}>
+              <p ref={brideFirstNameRef} className="font-foglihten text-3xl sm:text-4xl md:text-5xl lg:text-6xl uppercase leading-tight" style={{ color: '#1e3a5f' }}>
                 {brideName.first}
               </p>
-              <p ref={brideLastNameRef} className="font-foglihten text-3xl sm:text-4xl md:text-5xl lg:text-6xl uppercase leading-tight -mt-2 sm:-mt-3" style={{ color: '#F4C6CF', textShadow: '0 1px 2px rgba(0,0,0,0.06)' }}>
+              <p ref={brideLastNameRef} className="font-foglihten text-3xl sm:text-4xl md:text-5xl lg:text-6xl uppercase leading-tight -mt-2 sm:-mt-3" style={{ color: '#B76E79', textShadow: '0 1px 2px rgba(0,0,0,0.06)' }}>
                 {brideName.last}
               </p>
             </div>
@@ -242,9 +242,9 @@ const Hero = () => {
         aria-label={isPlaying ? 'Pause music' : 'Play music'}
       >
         {isPlaying ? (
-          <Pause size={18} className="sm:w-5 sm:h-5 md:w-6 md:h-6 text-[#7BA3C4]" fill="#7BA3C4" />
+          <Pause size={18} className="sm:w-5 sm:h-5 md:w-6 md:h-6 text-[#1e3a5f]" fill="#1e3a5f" />
         ) : (
-          <Play size={18} className="sm:w-5 sm:h-5 md:w-6 md:h-6 text-[#7BA3C4] ml-1" fill="#7BA3C4" />
+          <Play size={18} className="sm:w-5 sm:h-5 md:w-6 md:h-6 text-[#1e3a5f] ml-1" fill="#1e3a5f" />
         )}
       </button>
 
