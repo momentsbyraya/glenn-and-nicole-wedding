@@ -1,28 +1,24 @@
 {
   "mainDressCode": {
     "title": "Attire Guide",
-    "description": "Formal attire in Burgundy, Rose Gold, Blush Pink, and Dusty Rose on our special day."
+    "description": "Light Blue or Light Pink attire to match our wedding motif."
   },
   "sections": [
     {
       "title": "Principal Sponsors",
       "type": "text",
-      "ninong": {
-        "description": "Black Pants and Beige Barong",
-        "colors": ["#000000", "#E8DCC4"]
-      },
       "ninang": {
-        "description": "long gown dusty rose/rose gold",
-        "colors": ["#C08081", "#E8B4B8"]
+        "description": "Light Pink Long Gown",
+        "colors": ["#FDB7C2", "#F7E0E3"]
       },
       "image": "/assets/images/dresscode/principal.png"
     },
     {
       "title": "Guests",
       "type": "image",
-      "description": "Guests are requested to wear semi-formal / formal attire shades of Burgundy / Blush colors.",
-      "colorPaletteLabel": "Burgundy / Rose Gold",
-      "colors": ["#722F37", "#8B3A42", "#C08081", "#F4C2C2"],
+      "description": "Light Blue or Light Pink Attire",
+      "colorPaletteLabel": "Light Blue or Light Pink",
+      "colors": ["#A9D1EA", "#C6E1F2", "#FDB7C2", "#F7E0E3"],
       "image": "/assets/images/dresscode/guests.png"
     }
   ]

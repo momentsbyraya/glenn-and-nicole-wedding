@@ -2,7 +2,6 @@ import React, { useRef, useEffect } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { Mail } from 'lucide-react'
-import { couple } from '../data'
 import { themeConfig } from '../config/themeConfig'
 import './pages/Details.css'
 
@@ -76,10 +75,7 @@ const RSVPSection = ({ onOpenRSVP }) => {
         width: '100vw',
         marginLeft: 'calc(-50vw + 50%)',
         marginRight: 'calc(-50vw + 50%)',
-        backgroundImage: 'url(/assets/images/graphics/sage-bg.png)',
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat'
+        background: 'transparent'
       }}
     >
       <div className="relative z-10 flex items-center justify-center py-16 sm:py-20 md:py-24">
@@ -106,8 +102,7 @@ const RSVPSection = ({ onOpenRSVP }) => {
         </div>
         <div ref={rsvpContentRef}>
           <p className="text-sm sm:text-base font-albert font-thin text-burgundy-dark max-w-3xl mx-auto leading-relaxed text-center mb-6">
-                Kindly respond on or before<br /><strong className="!font-bold" style={{ fontWeight: 700 }}>{couple.rsvpDeadline ? `${couple.rsvpDeadline.month} ${couple.rsvpDeadline.day}, ${couple.rsvpDeadline.year}` : 'May 4, 2026'}</strong>.<br />
-                After this date, arrangements are final.
+                Kindly respond on or before April 15, 2026.
           </p>
           {onOpenRSVP && (
             <div className="flex flex-col items-center gap-4">

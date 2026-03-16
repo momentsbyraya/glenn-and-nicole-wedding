@@ -53,6 +53,15 @@ const Venue = () => {
 
   const [activeIndex, setActiveIndex] = useState(0)
 
+  // Auto-advance carousel every 3s when multiple slides
+  useEffect(() => {
+    if (eventSlides.length <= 1) return
+    const id = setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % eventSlides.length)
+    }, 3000)
+    return () => clearInterval(id)
+  }, [eventSlides.length])
+
   const goToSlide = (index) => {
     const next = Math.max(0, Math.min(index, eventSlides.length - 1))
     setActiveIndex(next)
@@ -189,12 +198,12 @@ const Venue = () => {
         >
           <div
             ref={carouselTrackRef}
-            className="flex transition-transform duration-300 ease-out will-change-transform"
-            style={{
-              width: `${eventSlides.length * 100}%`,
-              transform: `translate3d(${-activeIndex * (100 / eventSlides.length)}%, 0, 0)`,
-            }}
-          >
+            className="flex transition-transform duration-700 ease-in-out will-change-transform"
+              style={{
+                width: `${eventSlides.length * 100}%`,
+                transform: `translate3d(${-activeIndex * (100 / eventSlides.length)}%, 0, 0)`,
+              }}
+            >
             {eventSlides.map((slide) => (
               <div
                 key={slide.title}

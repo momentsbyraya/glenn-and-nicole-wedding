@@ -61,7 +61,7 @@
 
 .program-description {
   width: 80%;
-  color: #B76E79 !important;
+  color: #1e3a5f !important;
 }
 
 /* Date Selector */
@@ -84,7 +84,7 @@
 }
 
 .timeline-event-description {
-  color: #B76E79;
+  color: #1e3a5f;
 }
 
 /* Dress Code */
@@ -246,13 +246,13 @@
   }
 }
 
-/* FAQ Section - light pink background */
+/* FAQ Section - soft pastel (parent provides pastel-watercolor-bg) */
 .faq-section {
   padding: 4rem 0;
   width: 100vw;
   margin-left: calc(-50vw + 50%);
   margin-right: calc(-50vw + 50%);
-  background-color: #F4C6CF;
+  background-color: transparent;
 }
 
 .faq-title-text {
@@ -270,7 +270,7 @@
 }
 
 .faq-section p.font-thin {
-  color: #B76E79 !important;
+  color: #1e3a5f !important;
 }
 
 .faq-section .h-px {

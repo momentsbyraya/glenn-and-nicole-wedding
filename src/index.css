@@ -158,14 +158,13 @@ body {
   font-weight: 400;
   line-height: 1.6;
   color: #1e3a5f;
-  /* Minimal pastel watercolor: blush pink dominant, powder blue at edges, clean center */
-  background-color: #FFFBFB;
+  /* Soft romantic pastel: light blue and light pink */
+  background-color: #F9FBFF;
   background-image:
-    radial-gradient(ellipse 140% 90% at 0% 0%, rgba(212, 229, 244, 0.65) 0%, rgba(244, 198, 207, 0.25) 45%, transparent 70%),
-    radial-gradient(ellipse 120% 100% at 100% 0%, rgba(196, 212, 232, 0.55) 0%, transparent 55%),
-    radial-gradient(ellipse 110% 90% at 0% 100%, rgba(212, 229, 244, 0.5) 0%, transparent 55%),
-    radial-gradient(ellipse 130% 100% at 100% 100%, rgba(184, 212, 232, 0.55) 0%, transparent 55%),
-    radial-gradient(ellipse 90% 70% at 50% 50%, rgba(255, 255, 255, 0.92) 0%, rgba(255, 251, 251, 0.98) 100%);
+    radial-gradient(circle at 20% 30%, rgba(169, 209, 234, 0.35) 0%, transparent 50%),
+    radial-gradient(circle at 80% 60%, rgba(253, 183, 194, 0.35) 0%, transparent 50%),
+    radial-gradient(circle at 50% 90%, rgba(198, 225, 242, 0.25) 0%, transparent 55%),
+    linear-gradient(180deg, #F9FBFF 0%, #F7F9FF 100%);
   background-attachment: fixed;
   min-height: 100vh;
 }
@@ -202,17 +201,15 @@ body {
     border: 1px solid rgba(123, 163, 196, 0.25);
   }
   
-  /* Pastel watercolor page background (optional overlay) */
+  /* Soft pastel section background (Our Love Story, Entourage, Dress Code, RSVP, Gifts, FAQ) */
   .pastel-watercolor-bg {
-    background-color: #FFFBFB;
+    background-color: #F9FBFF;
     background-image:
-      radial-gradient(ellipse 140% 90% at 0% 0%, rgba(212, 229, 244, 0.6) 0%, rgba(244, 198, 207, 0.2) 45%, transparent 70%),
-      radial-gradient(ellipse 120% 100% at 100% 0%, rgba(196, 212, 232, 0.5) 0%, transparent 55%),
-      radial-gradient(ellipse 110% 90% at 0% 100%, rgba(212, 229, 244, 0.45) 0%, transparent 55%),
-      radial-gradient(ellipse 130% 100% at 100% 100%, rgba(184, 212, 232, 0.5) 0%, transparent 55%),
-      radial-gradient(ellipse 85% 65% at 50% 50%, rgba(255, 255, 255, 0.95) 0%, rgba(255, 251, 251, 1) 100%);
+      radial-gradient(circle at 20% 30%, rgba(169, 209, 234, 0.35) 0%, transparent 50%),
+      radial-gradient(circle at 80% 60%, rgba(253, 183, 194, 0.35) 0%, transparent 50%),
+      radial-gradient(circle at 50% 90%, rgba(198, 225, 242, 0.25) 0%, transparent 55%),
+      linear-gradient(180deg, #F9FBFF 0%, #F7F9FF 100%);
     background-attachment: fixed;
-    min-height: 100vh;
   }
 }
 

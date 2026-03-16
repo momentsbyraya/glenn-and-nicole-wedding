@@ -110,6 +110,11 @@ const Gallery = () => {
 
   return (
     <section ref={sectionRef} className="gallery-section" aria-label="Photo gallery">
+      <div className="text-center mb-8 sm:mb-10">
+        <h3 className="font-foglihten text-3xl sm:text-4xl md:text-5xl lg:text-6xl inline-block leading-none capitalize" style={{ color: '#1e3a5f' }}>
+          Our Moments
+        </h3>
+      </div>
       <div ref={gridRef} className="gallery-grid">
         {images.map((src, index) => (
           <button

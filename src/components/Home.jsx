@@ -54,11 +54,13 @@ const Home = ({ onOpenRSVP }) => {
         </div>
       </div>
 
-      {/* Entourage Section - image grid (same design as EntourageModal) */}
-      <EntourageSection />
+      {/* Entourage Section - soft pastel background */}
+      <div className="pastel-watercolor-bg">
+        <EntourageSection />
+      </div>
 
-      {/* Content */}
-      <div className="relative z-20 flex items-center justify-center pt-12">
+      {/* Content - soft pastel background for main sections */}
+      <div className="relative z-20 flex items-center justify-center pt-12 pastel-watercolor-bg">
         <div className="max-w-xs sm:max-w-md lg:max-w-3xl w-full mx-auto">
           {/* Dress Code Section */}
           <DressCode />
@@ -77,8 +79,10 @@ const Home = ({ onOpenRSVP }) => {
         </div>
       </div>
 
-      {/* FAQ Section */}
-      <FAQ />
+      {/* FAQ Section - soft pastel background */}
+      <div className="pastel-watercolor-bg">
+        <FAQ />
+      </div>
 
       {/* Save The Date Counter Section */}
       <SaveTheDateCounter />
