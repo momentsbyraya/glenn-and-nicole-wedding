@@ -1,9 +1,15 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { gsap } from 'gsap'
 import { Play, Pause } from 'lucide-react'
-import { couple } from '../data'
-import { venues } from '../data'
-import { themeConfig } from '../config/themeConfig'
+import { couple, venues, prenupImages } from '../data'
+import PhotoWatermark from './PhotoWatermark'
+
+// Pastel hero text (readable on photo with subtle shadow)
+const HERO_LIGHT_BLUE = '#A9D1EA'
+const HERO_SKY_BLUE = '#C6E1F2'
+const HERO_LIGHT_PINK = '#FDB7C2'
+const HERO_BLUSH_PINK = '#F7E0E3'
+const heroTextShadow = '0 1px 3px rgba(0, 0, 0, 0.35), 0 0 20px rgba(255, 255, 255, 0.25)'
 
 const Hero = () => {
   const [isPlaying, setIsPlaying] = useState(false)
@@ -141,7 +147,14 @@ const Hero = () => {
   }, [])
 
   return (
-    <div className="relative w-full" style={{ height: '100vh' }}>
+    <div
+      className="relative min-h-screen min-h-[100dvh] overflow-hidden bg-[#e8eef5]"
+      style={{
+        width: '100vw',
+        marginLeft: 'calc(50% - 50vw)',
+        marginRight: 'calc(50% - 50vw)',
+      }}
+    >
       {/* Audio Element */}
       <audio
         ref={audioRef}
@@ -149,44 +162,43 @@ const Hero = () => {
         loop
         onEnded={() => setIsPlaying(false)}
       />
-      
-      <div className="absolute inset-0">
-        <img 
-          src="/assets/images/hero-couple.jpg" 
+
+      {/* Full-bleed banner: overflow hidden + slight scale removes edge gaps (letterboxing / subpixel) */}
+      <div className="absolute inset-0 overflow-hidden">
+        <img
+          src={prenupImages.hero}
           alt="Hero"
-          className="w-full h-full object-cover object-top md:object-[center_18%]"
+          className="absolute left-1/2 top-1/2 h-full w-full min-h-full min-w-full -translate-x-1/2 -translate-y-1/2 object-cover object-top md:object-[center_18%] scale-[1.08] sm:scale-[1.06] md:scale-[1.04] lg:scale-[1.02]"
+          style={{ maxWidth: 'none' }}
         />
-        <span className="absolute inset-0 flex items-center justify-center text-white font-medium text-lg sm:text-xl md:text-2xl pointer-events-none z-10 drop-shadow-md">
-          Image Here
-        </span>
+        <PhotoWatermark variant="hero" />
       </div>
       
-      {/* Blurred White SVG Overlay at Top */}
-      <svg 
-        className="absolute top-0 left-0 w-full h-64 sm:h-80 md:h-96 lg:h-[28rem] z-10 pointer-events-none" 
-        preserveAspectRatio="none" 
-        viewBox="0 0 1200 400" 
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <defs>
-          <filter id="blur">
-            <feGaussianBlur in="SourceGraphic" stdDeviation="8"/>
-          </filter>
-          <linearGradient id="topGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stopColor="rgba(255, 255, 255, 0.95)" />
-            <stop offset="40%" stopColor="rgba(255, 255, 255, 0.7)" />
-            <stop offset="70%" stopColor="rgba(255, 255, 255, 0.3)" />
-            <stop offset="100%" stopColor="rgba(255, 255, 255, 0)" />
-          </linearGradient>
-        </defs>
-        <rect width="100%" height="100%" fill="url(#topGradient)" filter="url(#blur)" />
-      </svg>
+      {/* Safe-area: solid strip so status bar / notch never shows a gap above the fade */}
+      <div
+        className="pointer-events-none absolute left-1/2 top-0 z-[11] -translate-x-1/2 bg-white"
+        style={{ width: '120vw', height: 'env(safe-area-inset-top, 0px)', minHeight: 'max(env(safe-area-inset-top), 0px)' }}
+        aria-hidden
+      />
+
+      {/* Top banner: CSS gradient (opaque at the true top edge — no transparent seam like SVG blur) */}
+      <div
+        className="pointer-events-none absolute left-1/2 top-0 z-10 max-w-none -translate-x-1/2"
+        style={{
+          width: '120vw',
+          height: 'min(48vh, 34rem)',
+          minHeight: '12rem',
+          background:
+            'linear-gradient(to bottom, #ffffff 0%, #ffffff 6%, rgba(255,255,255,0.96) 16%, rgba(255,255,255,0.72) 38%, rgba(255,255,255,0.28) 65%, rgba(255,255,255,0) 100%)',
+        }}
+        aria-hidden
+      />
       
       {/* Couple Names, Date and Venue at Top */}
       <div className="absolute top-0 left-0 right-0 pt-8 sm:pt-12 md:pt-16 lg:pt-20 px-4 sm:px-6 md:px-8 z-20">
         <div className="max-w-4xl mx-auto text-center">
           <div className="flex flex-col items-center justify-center">
-            {/* Groom's Name - full name */}
+            {/* Groom's Name - Glenn John Caracas (original dark blue / rose) */}
             <div>
               <p ref={groomFirstNameRef} className="font-foglihten text-3xl sm:text-4xl md:text-5xl lg:text-6xl uppercase leading-tight" style={{ color: '#1e3a5f' }}>
                 {groomName.first}
@@ -195,15 +207,15 @@ const Hero = () => {
                 {groomName.last}
               </p>
             </div>
-            <p ref={andRef} className="caudex-bold text-sm sm:text-base md:text-lg lg:text-xl uppercase leading-tight my-2 sm:my-3" style={{ color: '#000000' }}>
+            <p ref={andRef} className="caudex-bold text-sm sm:text-base md:text-lg lg:text-xl uppercase leading-tight my-2 sm:my-3" style={{ color: HERO_SKY_BLUE, textShadow: heroTextShadow }}>
               AND
             </p>
             {/* Bride's Name - full name */}
             <div>
-              <p ref={brideFirstNameRef} className="font-foglihten text-3xl sm:text-4xl md:text-5xl lg:text-6xl uppercase leading-tight" style={{ color: '#1e3a5f' }}>
+              <p ref={brideFirstNameRef} className="font-foglihten text-3xl sm:text-4xl md:text-5xl lg:text-6xl uppercase leading-tight" style={{ color: HERO_LIGHT_PINK, textShadow: heroTextShadow }}>
                 {brideName.first}
               </p>
-              <p ref={brideLastNameRef} className="font-foglihten text-3xl sm:text-4xl md:text-5xl lg:text-6xl uppercase leading-tight -mt-2 sm:-mt-3" style={{ color: '#B76E79', textShadow: '0 1px 2px rgba(0,0,0,0.06)' }}>
+              <p ref={brideLastNameRef} className="font-foglihten text-3xl sm:text-4xl md:text-5xl lg:text-6xl uppercase leading-tight -mt-2 sm:-mt-3" style={{ color: HERO_BLUSH_PINK, textShadow: heroTextShadow }}>
                 {brideName.last}
               </p>
             </div>
@@ -211,26 +223,25 @@ const Hero = () => {
         </div>
       </div>
 
-      {/* Blurred White SVG Overlay at Bottom */}
-      <svg 
-        className="absolute bottom-0 left-0 w-full h-64 sm:h-80 md:h-96 lg:h-[28rem] z-10 pointer-events-none" 
-        preserveAspectRatio="none" 
-        viewBox="0 0 1200 400" 
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <defs>
-          <filter id="blurBottom">
-            <feGaussianBlur in="SourceGraphic" stdDeviation="8"/>
-          </filter>
-          <linearGradient id="bottomGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stopColor="rgba(255, 255, 255, 0)" />
-            <stop offset="30%" stopColor="rgba(255, 255, 255, 0.3)" />
-            <stop offset="60%" stopColor="rgba(255, 255, 255, 0.7)" />
-            <stop offset="100%" stopColor="rgba(255, 255, 255, 0.95)" />
-          </linearGradient>
-        </defs>
-        <rect width="100%" height="100%" fill="url(#bottomGradient)" filter="url(#blurBottom)" />
-      </svg>
+      {/* Home indicator / bottom safe area */}
+      <div
+        className="pointer-events-none absolute bottom-0 left-1/2 z-[11] -translate-x-1/2 bg-white"
+        style={{ width: '120vw', height: 'env(safe-area-inset-bottom, 0px)', minHeight: 'max(env(safe-area-inset-bottom), 0px)' }}
+        aria-hidden
+      />
+
+      {/* Bottom banner: opaque white at the true bottom edge */}
+      <div
+        className="pointer-events-none absolute bottom-0 left-1/2 z-10 max-w-none -translate-x-1/2"
+        style={{
+          width: '120vw',
+          height: 'min(48vh, 34rem)',
+          minHeight: '12rem',
+          background:
+            'linear-gradient(to top, #ffffff 0%, #ffffff 6%, rgba(255,255,255,0.96) 16%, rgba(255,255,255,0.72) 38%, rgba(255,255,255,0.28) 65%, rgba(255,255,255,0) 100%)',
+        }}
+        aria-hidden
+      />
 
       {/* Play/Pause Music Button - Bottom Right */}
       <button
@@ -242,20 +253,20 @@ const Hero = () => {
         aria-label={isPlaying ? 'Pause music' : 'Play music'}
       >
         {isPlaying ? (
-          <Pause size={18} className="sm:w-5 sm:h-5 md:w-6 md:h-6 text-[#1e3a5f]" fill="#1e3a5f" />
+          <Pause size={18} className="sm:w-5 sm:h-5 md:w-6 md:h-6 text-[#5a7a9a]" fill="#5a7a9a" />
         ) : (
-          <Play size={18} className="sm:w-5 sm:h-5 md:w-6 md:h-6 text-[#1e3a5f] ml-1" fill="#1e3a5f" />
+          <Play size={18} className="sm:w-5 sm:h-5 md:w-6 md:h-6 text-[#5a7a9a] ml-1" fill="#5a7a9a" />
         )}
       </button>
 
       {/* Date and Venue at Bottom Center */}
       <div className="absolute bottom-0 left-0 right-0 pb-8 sm:pb-12 md:pb-16 lg:pb-20 px-4 sm:px-6 md:px-8 z-20">
         <div className="max-w-4xl mx-auto text-center">
-          <p ref={dateRef} className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-foglihten" style={{ color: themeConfig.text.darkSageGreen }}>
+          <p ref={dateRef} className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-foglihten" style={{ color: '#1e3a5f' }}>
               {formatDate()}
             </p>
-          {/* Venue - Plain Text */}
-          <p ref={venueRef} className="text-xs sm:text-sm md:text-base font-albert mt-2 sm:mt-3" style={{ color: themeConfig.text.lightBlack }}>
+          {/* Reception / venue — same accent as groom last name */}
+          <p ref={venueRef} className="text-xs sm:text-sm md:text-base font-albert mt-2 sm:mt-3" style={{ color: '#B76E79', textShadow: '0 1px 2px rgba(0,0,0,0.06)' }}>
               {venueName}
             </p>
         </div>

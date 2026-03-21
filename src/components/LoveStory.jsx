@@ -3,21 +3,15 @@ import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { createPortal } from 'react-dom'
 import { X, ChevronLeft, ChevronRight } from 'lucide-react'
-import { loveStory } from '../data'
+import { loveStory, prenupImages } from '../data'
+import PhotoWatermark from './PhotoWatermark'
 import { themeConfig } from '../config/themeConfig'
 import './pages/Details.css'
 
 // Register ScrollTrigger plugin
 gsap.registerPlugin(ScrollTrigger)
 
-const polaroidImages = [
-  '/assets/images/couple-1.jpg',
-  '/assets/images/couple-2.jpg',
-  '/assets/images/couple-3.jpg',
-  '/assets/images/couple-4.jpg',
-  '/assets/images/couple-5.jpg',
-  '/assets/images/couple-6.jpg',
-]
+const polaroidImages = prenupImages.lovePolaroids
 
 const LoveStory = () => {
   const sectionRef = useRef(null)
@@ -120,8 +114,11 @@ const LoveStory = () => {
     }
   }, [isPhotoModalOpen])
 
-  const PolaroidFrame = ({ image, rotation = 0, index, onClick, size = 'normal' }) => {
+  /** imageRotation: degrees counter-clockwise on the photo only (e.g. -90 = “rotate left” one turn) */
+  const PolaroidFrame = ({ image, rotation = 0, imageRotation = 0, index, onClick, size = 'normal' }) => {
     const maxWidth = size === 'small' ? '120px' : size === 'large' ? '280px' : '200px'
+    const absImgRot = Math.abs(imageRotation)
+    const imgScale = absImgRot >= 45 ? 1.28 : absImgRot > 0 ? 1.08 : 1
     return (
       <div
         className="bg-white shadow-lg relative"
@@ -138,18 +135,31 @@ const LoveStory = () => {
         role={onClick ? 'button' : undefined}
         aria-label={onClick ? `View photo ${index + 1}` : undefined}
       >
-        <div className="relative">
-          <img
-            src={image}
-            alt={`Love story ${index + 1}`}
-            className="w-full aspect-square object-cover"
-            style={{ border: '2px solid #FFFBFB', borderBottom: 'none', display: 'block' }}
-          />
+        {/* Stamp sits outside overflow-hidden so it can overlap the top border + photo like the original */}
+        <div className="relative w-full">
+          <div className="relative aspect-square w-full overflow-hidden">
+            <img
+              src={image}
+              alt={`Love story ${index + 1}`}
+              className="w-full h-full object-cover"
+              style={{
+                border: '2px solid #FFFBFB',
+                borderBottom: 'none',
+                display: 'block',
+                transform:
+                  imageRotation !== 0
+                    ? `rotate(${imageRotation}deg) scale(${imgScale})`
+                    : undefined,
+                transformOrigin: 'center center',
+              }}
+            />
+            <PhotoWatermark variant="polaroid" />
+          </div>
           <img
             src="/assets/images/graphics/stamp.png"
             alt=""
-            className="absolute left-1/2 transform -translate-x-1/2"
-            style={{ top: '-8%', width: '20%', height: 'auto', pointerEvents: 'none' }}
+            className="pointer-events-none absolute left-1/2 top-0 z-10 w-[20%] -translate-x-1/2 -translate-y-1/2"
+            style={{ height: 'auto' }}
           />
         </div>
       </div>
@@ -172,7 +182,14 @@ const LoveStory = () => {
       <div className="max-w-2xl mx-auto px-4 sm:px-6 md:px-8">
         <div ref={summaryBlockRef} className="flex flex-col sm:flex-row gap-8 sm:gap-10 items-center justify-center">
           <div className="flex-shrink-0 flex justify-center">
-            <PolaroidFrame image={polaroidImages[0]} rotation={-2} index={0} size="large" onClick={() => openPhotoModal(0)} />
+            <PolaroidFrame
+              image={polaroidImages[0]}
+              rotation={-2}
+              imageRotation={-90}
+              index={0}
+              size="large"
+              onClick={() => openPhotoModal(0)}
+            />
           </div>
           <div className="flex-1 text-center sm:text-left">
             <p className="text-sm sm:text-base font-albert font-thin text-burgundy-dark leading-relaxed">
@@ -217,7 +234,16 @@ const LoveStory = () => {
                 {/* Row 1: polaroid left, summary right */}
                 <div className="grid w-full gap-4 sm:gap-6 md:gap-8 items-center min-h-0" style={{ gridTemplateColumns: '2fr 3fr' }}>
                   <div className="flex justify-center min-w-0">
-                    <PolaroidFrame image={polaroidImages[0]} rotation={-3} index={0} onClick={() => { closeStoryModal(); openPhotoModal(0); }} />
+                    <PolaroidFrame
+                      image={polaroidImages[0]}
+                      rotation={-3}
+                      imageRotation={-90}
+                      index={0}
+                      onClick={() => {
+                        closeStoryModal()
+                        openPhotoModal(0)
+                      }}
+                    />
                   </div>
                   <div className="flex items-center min-w-0">
                     <p className="text-sm sm:text-base font-albert font-thin text-burgundy-dark leading-relaxed text-left w-full">{summary}</p>
@@ -283,7 +309,17 @@ const LoveStory = () => {
             <ChevronRight className="w-6 h-6 text-white" />
           </button>
           <div ref={photoModalContentRef} className="relative z-10 max-w-[90vw] max-h-[90vh] flex items-center justify-center pointer-events-none">
-            <img src={polaroidImages[currentImageIndex]} alt={`Photo ${currentImageIndex + 1}`} className="max-w-full max-h-[90vh] object-contain rounded" />
+            <div className="relative inline-block max-h-[90vh] max-w-full">
+              <img
+                src={polaroidImages[currentImageIndex]}
+                alt={`Photo ${currentImageIndex + 1}`}
+                className="max-w-full max-h-[90vh] object-contain rounded"
+                style={
+                  currentImageIndex === 0 ? { transform: 'rotate(-90deg)' } : undefined
+                }
+              />
+              <PhotoWatermark variant="lightbox" />
+            </div>
           </div>
           <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 px-4 py-2 rounded-full bg-white/20 backdrop-blur-sm pointer-events-none">
             <span className="text-white text-sm font-albert">{currentImageIndex + 1} / {polaroidImages.length}</span>

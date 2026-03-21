@@ -1,18 +1,18 @@
 {
-  "hero": "/assets/images/hero-couple.jpg",
+  "hero": "/assets/images/prenup/_6II1131.webp",
   "couple": {
-    "couple1": "/assets/images/couple-1.jpg",
-    "couple2": "/assets/images/couple-2.jpg",
-    "couple3": "/assets/images/couple-3.jpg",
-    "couple4": "/assets/images/couple-4.jpg",
-    "couple5": "/assets/images/couple-5.jpg",
-    "couple6": "/assets/images/couple-6.jpg",
-    "couple7": "/assets/images/couple-7.jpg",
-    "couple8": "/assets/images/couple-8.jpg"
+    "couple1": "/assets/images/prenup/_6II1835.webp",
+    "couple2": "/assets/images/prenup/_6II1995.webp",
+    "couple3": "/assets/images/prenup/_6II2104.webp",
+    "couple4": "/assets/images/prenup/DSC08097.webp",
+    "couple5": "/assets/images/prenup/DSC08402.jpg",
+    "couple6": "/assets/images/prenup/DSC08863.jpg",
+    "couple7": "/assets/images/prenup/DSC09091.jpg",
+    "couple8": "/assets/images/prenup/IMG_20260227_052508_822.jpg"
   },
   "venues": {
     "church": "/assets/images/venues/church.svg",
     "reception": "/assets/images/venues/reception.svg"
   },
   "favicon": "/assets/images/favicon.png"
-} 
+}

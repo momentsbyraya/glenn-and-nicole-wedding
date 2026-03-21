@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react'
+import React, { useRef, useEffect, useState } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { dresscode } from '../data'
@@ -7,6 +7,47 @@ import './pages/Details.css'
 
 // Register ScrollTrigger plugin
 gsap.registerPlugin(ScrollTrigger)
+
+const GUEST_SLIDE_INTERVAL_MS = 2500
+
+/** Cycles guest dress-code illustrations (e.g. light pink vs light blue gown + barong). */
+const GuestDresscodeSlideshow = ({ images, title }) => {
+  const urls = Array.isArray(images) ? images.filter(Boolean) : []
+  const [active, setActive] = useState(0)
+
+  useEffect(() => {
+    if (urls.length <= 1) return undefined
+    const id = window.setInterval(() => {
+      setActive((i) => (i + 1) % urls.length)
+    }, GUEST_SLIDE_INTERVAL_MS)
+    return () => window.clearInterval(id)
+  }, [urls.length])
+
+  if (urls.length === 0) return null
+
+  if (urls.length === 1) {
+    return <img src={urls[0]} alt={title} className="w-full h-full object-cover rounded" />
+  }
+
+  return (
+    <div
+      className="relative w-full aspect-[4/5] rounded overflow-hidden"
+      aria-label={`${title} attire examples`}
+    >
+      {urls.map((src, i) => (
+        <img
+          key={src}
+          src={src}
+          alt={i === active ? `${title} example ${i + 1} of ${urls.length}` : ''}
+          aria-hidden={i !== active}
+          className={`absolute inset-0 w-full h-full object-cover rounded transition-opacity duration-700 ease-in-out ${
+            i === active ? 'opacity-100 z-[1]' : 'opacity-0 z-0'
+          }`}
+        />
+      ))}
+    </div>
+  )
+}
 
 const DressCode = () => {
   const dressCodeTitleRef = useRef(null)
@@ -237,12 +278,12 @@ const DressCode = () => {
                     {section.image && (
                       <div className="w-1/2 lg-custom:w-full order-2 lg-custom:order-1">
                         <div className="w-full relative dresscode-image-container">
-                          <img 
-                            src={section.image} 
-                            alt={section.title} 
+                          <img
+                            src={section.image}
+                            alt={section.title}
                             className="w-full h-full object-cover rounded"
-              />
-            </div>
+                          />
+                        </div>
                       </div>
                     )}
                   </div>
@@ -275,14 +316,18 @@ const DressCode = () => {
                   {/* Category Image and Details - Side by side on mobile, stacked on 992px+ */}
                   <div className="flex flex-row lg-custom:flex-col gap-6 md:gap-8 lg-custom:gap-6 items-start">
                     {/* Category Image - Second category: left on mobile, top on desktop */}
-                    {section.image && (
+                    {(section.images?.length > 0 || section.image) && (
                       <div className="w-1/2 lg-custom:w-full">
                         <div className="w-full relative dresscode-image-container">
-                          <img 
-                            src={section.image} 
-                            alt={section.title} 
-                            className="w-full h-full object-cover rounded"
-                          />
+                          {section.images && section.images.length > 0 ? (
+                            <GuestDresscodeSlideshow images={section.images} title={section.title} />
+                          ) : (
+                            <img
+                              src={section.image}
+                              alt={section.title}
+                              className="w-full h-full object-cover rounded"
+                            />
+                          )}
                         </div>
                       </div>
                     )}

@@ -8,7 +8,8 @@ import DynamicTitle from './components/DynamicTitle'
 import Loader from './components/Loader'
 import OpeningScreen from './components/OpeningScreen'
 import ScrollToTop from './components/ScrollToTop'
-import { AudioProvider, useAudio } from './contexts/AudioContext'
+import { AudioProvider } from './contexts/AudioContext'
+import { prenupImages } from './data'
 
 const Details = lazy(() => import('./components/pages/Details'))
 const Entourage = lazy(() => import('./components/pages/Entourage'))
@@ -18,21 +19,13 @@ function AppContent() {
   const [isRSVPModalOpen, setIsRSVPModalOpen] = useState(false)
   const [showInvitation, setShowInvitation] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
-  const { play } = useAudio()
   const navigate = useNavigate()
 
   // Preload critical images and resources
   useEffect(() => {
     const preloadImages = async () => {
       const criticalImages = [
-        // Hero image - most important
-        '/assets/images/hero-couple.jpg',  // Hero image
-        // Sample images used on home page
-        '/assets/images/couple-1.jpg',  // Polaroid image
-        '/assets/images/couple-2.jpg',  // RSVP container
-        '/assets/images/couple-3.jpg',  // Moments polaroid 1
-        '/assets/images/couple-4.jpg',  // Moments polaroid 2
-        '/assets/images/couple-5.jpg',  // Save The Date countdown background
+        ...prenupImages.all,
         // NavIndex graphics - all decorative elements
         '/assets/images/graphics/dusty-blue.png',
         '/assets/images/graphics/flower-1.png',
@@ -115,7 +108,7 @@ function AppContent() {
             // Check if we're on the home page
             if (window.location.pathname === '/' || window.location.pathname === '') {
               // Look for hero image
-              const heroImg = document.querySelector('img[src="/assets/images/hero-couple.jpg"]')
+              const heroImg = document.querySelector(`img[src="${prenupImages.hero}"]`)
               if (heroImg) {
                 // Check if image is loaded and visible
                 if (heroImg.complete && heroImg.naturalHeight > 0) {
@@ -173,9 +166,7 @@ function AppContent() {
     preloadImages()
   }, [])
 
-  const handleEnvelopeOpen = async () => {
-    // Start playing music when invitation is revealed (user interaction allows auto-play)
-    await play()
+  const handleEnvelopeOpen = () => {
     setShowInvitation(true)
     navigate('/')
   }

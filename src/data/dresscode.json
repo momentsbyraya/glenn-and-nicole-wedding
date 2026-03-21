@@ -19,7 +19,10 @@
       "description": "Light Blue or Light Pink Attire",
       "colorPaletteLabel": "Light Blue or Light Pink",
       "colors": ["#A9D1EA", "#C6E1F2", "#FDB7C2", "#F7E0E3"],
-      "image": "/assets/images/dresscode/guests.png"
+      "images": [
+        "/assets/images/dresscode/Untitled design (2).png",
+        "/assets/images/dresscode/Untitled design (1).png"
+      ]
     }
   ]
 }

@@ -3,6 +3,7 @@ import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { X } from 'lucide-react'
 import { gallery as galleryData } from '../data'
+import PhotoWatermark from './PhotoWatermark'
 import './Gallery.css'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -63,7 +64,7 @@ const Gallery = () => {
   const gridRef = useRef(null)
   const [lightboxImage, setLightboxImage] = useState(null)
 
-  const images = (galleryData.images || []).slice(0, 14)
+  const images = galleryData.images || []
 
   useEffect(() => {
     if (!gridRef.current || images.length === 0) return
@@ -135,9 +136,7 @@ const Gallery = () => {
                 e.target.parentElement.classList.add('gallery-item--error')
               }}
             />
-            <span className="absolute inset-0 flex items-center justify-center text-white font-medium text-sm sm:text-base pointer-events-none z-10 drop-shadow-md">
-              Image Here
-            </span>
+            <PhotoWatermark variant="thumb" />
           </button>
         ))}
       </div>
@@ -158,12 +157,15 @@ const Gallery = () => {
           >
             <X className="w-8 h-8" />
           </button>
-          <img
-            src={lightboxImage}
-            alt="Enlarged"
-            className="gallery-lightbox-img"
-            onClick={(e) => e.stopPropagation()}
-          />
+          <div className="relative inline-block max-h-[90vh] max-w-full">
+            <img
+              src={lightboxImage}
+              alt="Enlarged"
+              className="gallery-lightbox-img"
+              onClick={(e) => e.stopPropagation()}
+            />
+            <PhotoWatermark variant="lightbox" />
+          </div>
         </div>
       )}
     </section>

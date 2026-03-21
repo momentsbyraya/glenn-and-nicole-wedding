@@ -3,7 +3,8 @@ import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { getTimeUntilWedding } from '../utils/countdown'
 import { themeConfig } from '../config/themeConfig'
-import { couple } from '../data'
+import { couple, prenupImages } from '../data'
+import PhotoWatermark from './PhotoWatermark'
 import './pages/Details.css'
 
 // Register ScrollTrigger plugin
@@ -82,14 +83,27 @@ const SaveTheDateCounter = () => {
   return (
     <section
       ref={sectionRef}
-      className="relative w-full py-8 sm:py-12 md:py-16 lg:py-20 min-h-[50vh] sm:min-h-[55vh] md:min-h-[60vh] lg:min-h-[65vh] flex flex-col justify-center"
-      style={{
-        backgroundColor: '#F4C6CF',
-        backgroundSize: 'cover',
-        backgroundPosition: 'center center',
-        backgroundRepeat: 'no-repeat'
-      }}
+      className="relative w-full overflow-hidden py-8 sm:py-12 md:py-16 lg:py-20 min-h-[50vh] sm:min-h-[55vh] md:min-h-[60vh] lg:min-h-[65vh] flex flex-col justify-center"
+      style={{ backgroundColor: '#F4C6CF' }}
+      aria-label="Save the date"
     >
+      {/* Background photo */}
+      <div className="pointer-events-none absolute inset-0 z-0">
+        <img
+          src={prenupImages.saveTheDate}
+          alt=""
+          className="absolute left-1/2 top-1/2 h-full min-h-full w-full min-w-full -translate-x-1/2 -translate-y-1/2 object-cover object-center scale-[1.06] sm:scale-[1.04]"
+          loading="lazy"
+          decoding="async"
+        />
+        {/* Soft rose tint so countdown stays readable */}
+        <div
+          className="absolute inset-0 bg-[#F4C6CF]/82 sm:bg-[#F4C6CF]/76 md:bg-[#F4C6CF]/70"
+          aria-hidden
+        />
+        <PhotoWatermark variant="section" />
+      </div>
+
       {/* SVG Overlay at Top */}
       <svg className="absolute top-0 left-0 w-full h-32 sm:h-40 md:h-48 z-10 pointer-events-none" preserveAspectRatio="none" viewBox="0 0 1200 200" xmlns="http://www.w3.org/2000/svg">
         <defs>
@@ -113,13 +127,6 @@ const SaveTheDateCounter = () => {
         </defs>
         <rect width="100%" height="100%" fill="url(#bottomGradient)" />
       </svg>
-
-      {/* Image Here - centered on section (behind content) */}
-      <div className="absolute inset-0 flex items-center justify-center z-0 pointer-events-none">
-        <span className="text-white/90 font-medium text-lg sm:text-xl md:text-2xl drop-shadow-md">
-          Image Here
-        </span>
-      </div>
 
       <div className="relative z-20 max-w-xs sm:max-w-md lg:max-w-3xl w-full mx-auto px-4 sm:px-6 md:px-8 flex flex-col justify-between min-h-[400px] sm:min-h-[500px] md:min-h-[600px]">
         {/* Title */}

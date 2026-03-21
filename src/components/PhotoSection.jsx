@@ -1,6 +1,8 @@
 import React, { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { prenupImages } from '../data'
+import PhotoWatermark from './PhotoWatermark'
 
 // Register ScrollTrigger plugin
 gsap.registerPlugin(ScrollTrigger)
@@ -17,11 +19,11 @@ const PhotoSection = ({
   const defaultTexts = ['Forever', 'Always', 'Together', 'Love', 'Us']
   const texts = backgroundTexts.length > 0 ? backgroundTexts : defaultTexts
   
-  // Default images if none provided
+  // Default: first three Our Moments gallery images (prenup)
   const defaultImages = [
-    { src: '/assets/images/couple-1.jpg', alt: 'Photo 1', label: 'Memories' },
-    { src: '/assets/images/couple-2.jpg', alt: 'Photo 2', label: 'Together' },
-    { src: '/assets/images/couple-3.jpg', alt: 'Photo 3', label: 'Love' }
+    { src: prenupImages.gallery[0], alt: 'Photo 1', label: 'Memories' },
+    { src: prenupImages.gallery[1], alt: 'Photo 2', label: 'Together' },
+    { src: prenupImages.gallery[2], alt: 'Photo 3', label: 'Love' },
   ]
   const displayImages = images.length > 0 ? images : defaultImages
   
@@ -215,14 +217,16 @@ const PhotoSection = ({
               }}
             >
               <div 
-                className="w-full h-40 sm:h-60 lg:h-72 bg-cover bg-center"
+                className="relative w-full h-40 sm:h-60 lg:h-72 overflow-hidden bg-cover bg-center"
                 style={{
                   backgroundImage: `url(${displayImages[0].src})`,
                   borderTop: '4px solid white',
                   borderLeft: '4px solid white',
                   borderRight: '4px solid white'
                 }}
-              ></div>
+              >
+                <PhotoWatermark variant="polaroid" />
+              </div>
               <div className="p-2 text-center">
                 <div className="text-sm sm:text-lg text-[#800000] font-handwritten">
                   {displayImages[0].label || 'Memories'}
@@ -242,14 +246,16 @@ const PhotoSection = ({
               }}
             >
               <div 
-                className="w-full h-40 sm:h-60 lg:h-72 bg-cover bg-center"
+                className="relative w-full h-40 sm:h-60 lg:h-72 overflow-hidden bg-cover bg-center"
                 style={{
                   backgroundImage: `url(${displayImages[1].src})`,
                   borderTop: '4px solid white',
                   borderLeft: '4px solid white',
                   borderRight: '4px solid white'
                 }}
-              ></div>
+              >
+                <PhotoWatermark variant="polaroid" />
+              </div>
               <div className="p-2 text-center">
                 <div className="text-sm sm:text-lg text-[#800000] font-handwritten">
                   {displayImages[1].label || 'Together'}
@@ -269,14 +275,16 @@ const PhotoSection = ({
               }}
             >
               <div 
-                className="w-full h-40 sm:h-60 lg:h-72 bg-cover bg-center"
+                className="relative w-full h-40 sm:h-60 lg:h-72 overflow-hidden bg-cover bg-center"
                 style={{
                   backgroundImage: `url(${displayImages[2].src})`,
                   borderTop: '4px solid white',
                   borderLeft: '4px solid white',
                   borderRight: '4px solid white'
                 }}
-              ></div>
+              >
+                <PhotoWatermark variant="polaroid" />
+              </div>
               <div className="p-2 text-center">
                 <div className="text-sm sm:text-lg text-[#800000] font-handwritten">
                   {displayImages[2].label || 'Love'}
