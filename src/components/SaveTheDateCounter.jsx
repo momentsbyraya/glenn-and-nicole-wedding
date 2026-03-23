@@ -92,7 +92,7 @@ const SaveTheDateCounter = () => {
         <img
           src={prenupImages.saveTheDate}
           alt=""
-          className="absolute left-1/2 top-1/2 h-full min-h-full w-full min-w-full -translate-x-1/2 -translate-y-1/2 object-cover object-center scale-[1.06] sm:scale-[1.04]"
+          className="absolute left-1/2 top-1/2 h-full min-h-full w-full min-w-full -translate-x-1/2 -translate-y-1/2 object-cover object-[58%_center] scale-[1.06] sm:scale-[1.04]"
           loading="lazy"
           decoding="async"
         />

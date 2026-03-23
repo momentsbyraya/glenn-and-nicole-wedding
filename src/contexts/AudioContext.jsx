@@ -57,11 +57,16 @@ export const AudioProvider = ({ children }) => {
     }
   }, [])
 
-  const play = async () => {
+  /**
+   * @param {boolean} [fromStart=true] - If true, seek to loop start (envelope / fresh play). If false, resume from current time.
+   */
+  const play = async (fromStart = true) => {
     if (audioRef.current) {
       try {
-        const loopStart = typeof audio.loopStart === 'number' ? audio.loopStart : 0
-        audioRef.current.currentTime = loopStart
+        if (fromStart) {
+          const loopStart = typeof audio.loopStart === 'number' ? audio.loopStart : 0
+          audioRef.current.currentTime = loopStart
+        }
         await audioRef.current.play()
         setIsPlaying(true)
       } catch (error) {

@@ -11,6 +11,8 @@ gsap.registerPlugin(ScrollTrigger)
 
 const CAROUSEL_SPEED_PX_PER_SEC = 36
 const CAROUSEL_RESUME_DELAY_MS = 2500
+// Gift section request: show a single QR holder and cycle images instead of infinite scrolling cards.
+const USE_INFINITE_QR_CAROUSEL = false
 
 const GiftRegistry = () => {
   const giftRegistryRef = useRef(null)
@@ -19,6 +21,7 @@ const GiftRegistry = () => {
   const cardsContainerRef = useRef(null)
   const [isGiftModalOpen, setIsGiftModalOpen] = useState(false)
   const [selectedImage, setSelectedImage] = useState(null)
+  const [activeGiftIndex, setActiveGiftIndex] = useState(0)
   const modalRef = useRef(null)
   const overlayRef = useRef(null)
   const contentRef = useRef(null)
@@ -38,11 +41,7 @@ const GiftRegistry = () => {
   const didHorizontalRef = useRef(false)
   const carouselViewportRef = useRef(null)
 
-  const monetaryGiftPlaceholders = [
-    { label: 'QR code 1' },
-    { label: 'QR code 2' },
-    { label: 'QR code 3' }
-  ]
+  const monetaryGiftPlaceholders = paymentMethods
 
   const handlePlaceholderClick = (placeholder) => {
     setSelectedImage(placeholder)
@@ -54,6 +53,7 @@ const GiftRegistry = () => {
 
   // Infinite carousel: measure first set width, auto-scroll loop, touch handlers
   useEffect(() => {
+    if (!USE_INFINITE_QR_CAROUSEL) return undefined
     const measureSetWidth = () => {
       if (carouselFirstSetRef.current) {
         setWidthRef.current = carouselFirstSetRef.current.offsetWidth
@@ -93,6 +93,16 @@ const GiftRegistry = () => {
       resizeObserver.disconnect()
     }
   }, [isCarouselPaused])
+
+  // QR slideshow: one holder, crossfade every 2.5s (same as earlier carousel timing).
+  useEffect(() => {
+    if (!paymentMethods || paymentMethods.length <= 1) return undefined
+    setActiveGiftIndex(0)
+    const id = window.setInterval(() => {
+      setActiveGiftIndex((i) => (i + 1) % paymentMethods.length)
+    }, 2500)
+    return () => window.clearInterval(id)
+  }, [paymentMethods?.length])
 
   const handleCarouselTouchStart = (e) => {
     setIsCarouselPaused(true)
@@ -262,77 +272,32 @@ const GiftRegistry = () => {
             Your presence is the greatest gift. If you wish to honor us, we would be grateful for a <strong>monetary gift</strong> to help us start our new life together.
           </p>
           
-          {/* Mobile: infinite auto-scroll carousel with swipe */}
-          <div
-            ref={carouselViewportRef}
-            className="gift-carousel-viewport md:hidden overflow-hidden touch-pan-y"
-            onTouchStart={handleCarouselTouchStart}
-            onTouchEnd={handleCarouselTouchEnd}
-            onMouseDown={handleCarouselMouseDown}
-          >
-            <div
-              ref={carouselTrackRef}
-              className="gift-carousel-track flex gap-4 flex-nowrap will-change-transform"
-            >
-              <div ref={carouselFirstSetRef} className="flex gap-4 flex-shrink-0">
-                {monetaryGiftPlaceholders.map((item, index) => (
-                  <div
-                    key={`a-${index}`}
-                    className="gift-carousel-card flex-shrink-0 w-[85vw] min-w-[260px] max-w-[280px]"
-                  >
-                    <div
-                      className="w-full h-48 flex items-center justify-center border border-gray-300 rounded p-2 cursor-pointer hover:opacity-90 transition-opacity select-none bg-gray-50 text-gray-500 font-medium text-sm sm:text-base"
-                      onClick={() => handlePlaceholderClick(item)}
-                    >
-                      QR code here
-                    </div>
-                  </div>
-                ))}
-              </div>
-              <div className="flex gap-4 flex-shrink-0">
-                {monetaryGiftPlaceholders.map((item, index) => (
-                  <div
-                    key={`b-${index}`}
-                    className="gift-carousel-card flex-shrink-0 w-[85vw] min-w-[260px] max-w-[280px]"
-                  >
-                    <div
-                      className="w-full h-48 flex items-center justify-center border border-gray-300 rounded p-2 cursor-pointer hover:opacity-90 transition-opacity select-none bg-gray-50 text-gray-500 font-medium text-sm sm:text-base"
-                      onClick={() => handlePlaceholderClick(item)}
-                    >
-                      QR code here
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* Desktop: static row (visible from md up) */}
-          <div
-            ref={cardsContainerRef}
-            className="hidden md:block w-full overflow-x-auto overflow-y-hidden gift-registry-scroll -mx-4 sm:mx-0 px-4 sm:px-0"
-            style={{
-              scrollbarWidth: 'none',
-              msOverflowStyle: 'none',
-              WebkitOverflowScrolling: 'touch',
-              scrollSnapType: 'x mandatory',
-            }}
-          >
-            <div className="flex gap-4 sm:gap-4 md:gap-6 min-w-min justify-center">
-              {monetaryGiftPlaceholders.map((item, index) => (
-                <div
-                  key={index}
-                  className="gift-registry-card flex-shrink-0 snap-center snap-always w-[85vw] min-w-[260px] max-w-[280px] sm:max-w-none sm:w-auto"
+          {/* Single QR holder (crossfade cycle) */}
+          <div className="relative w-full max-w-[560px] mx-auto">
+            <div className="relative w-full h-[360px] sm:h-[430px] md:h-[520px] flex items-center justify-center border border-gray-300 rounded p-2 bg-gray-50 overflow-hidden">
+              {paymentMethods.map((method, index) => (
+                <button
+                  key={method.name}
+                  type="button"
+                  onClick={() => handlePlaceholderClick(method)}
+                  aria-label={`View ${method.name} QR`}
+                  className={`absolute inset-0 w-full h-full flex items-center justify-center p-0 transition-opacity duration-700 ease-in-out ${
+                    index === activeGiftIndex
+                      ? 'opacity-100 z-[1] pointer-events-auto'
+                      : 'opacity-0 z-0 pointer-events-none'
+                  }`}
                 >
-                  <div
-                    className="w-full h-48 sm:h-56 md:h-64 flex items-center justify-center border border-gray-300 rounded p-2 cursor-pointer hover:opacity-90 transition-opacity bg-gray-50 text-gray-500 font-medium text-sm sm:text-base"
-                    onClick={() => handlePlaceholderClick(item)}
-                  >
-                    QR code here
-                  </div>
-                </div>
+                  <img
+                    src={method.image}
+                    alt={`${method.name} QR`}
+                    className="w-full h-full object-contain rounded select-none"
+                  />
+                </button>
               ))}
             </div>
+            <p className="mt-3 text-sm sm:text-base font-albert italic text-burgundy-dark text-center">
+              PS: Click chosen QR
+            </p>
           </div>
         </div>
       </div>
@@ -367,7 +332,11 @@ const GiftRegistry = () => {
             className="relative z-10 max-w-[90vw] max-h-[90vh] flex items-center justify-center"
             style={{ pointerEvents: 'none' }}
           >
-            <span className="text-white text-xl sm:text-2xl font-medium">QR code here</span>
+            <img
+              src={selectedImage.image}
+              alt={`${selectedImage.name} QR`}
+              className="max-w-full max-h-[90vh] object-contain rounded"
+            />
           </div>
         </div>,
         document.body

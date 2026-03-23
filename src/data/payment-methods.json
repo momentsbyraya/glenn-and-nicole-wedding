@@ -1,13 +1,33 @@
 {
   "paymentMethods": [
     {
+      "name": "GCash",
+      "image": "/assets/images/qr/gcash-qr.png",
+      "accountInfo": {
+        "provider": "GCash",
+        "accountNumber": "",
+        "accountName": "",
+        "qrCode": "/assets/images/qr/gcash-qr.png"
+      }
+    },
+    {
       "name": "Bank of the Philippine Islands",
-      "image": "/assets/images/monetary-gifts/BPIQR_BPI.png",
+      "image": "/assets/images/qr/bpi-qr.png",
       "accountInfo": {
         "provider": "BPI",
         "accountNumber": "",
         "accountName": "",
-        "qrCode": "/assets/images/monetary-gifts/BPIQR_BPI.png"
+        "qrCode": "/assets/images/qr/bpi-qr.png"
+      }
+    },
+    {
+      "name": "Banco de Oro",
+      "image": "/assets/images/qr/bdo-qr.png",
+      "accountInfo": {
+        "provider": "BDO",
+        "accountNumber": "",
+        "accountName": "",
+        "qrCode": "/assets/images/qr/bdo-qr.png"
       }
     }
   ]

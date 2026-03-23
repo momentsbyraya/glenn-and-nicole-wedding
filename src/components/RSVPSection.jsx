@@ -70,7 +70,7 @@ const RSVPSection = ({ onOpenRSVP }) => {
   return (
     <div 
       ref={rsvpSectionRef} 
-      className="relative my-20 sm:my-24 md:my-32 px-4 sm:px-6 md:px-8"
+      className="relative mt-16 sm:mt-20 md:mt-24 mb-8 sm:mb-10 md:mb-12 px-4 sm:px-6 md:px-8"
       style={{
         width: '100vw',
         marginLeft: 'calc(-50vw + 50%)',

@@ -1,8 +1,9 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useRef, useEffect } from 'react'
 import { gsap } from 'gsap'
 import { Play, Pause } from 'lucide-react'
 import { couple, venues, prenupImages } from '../data'
 import PhotoWatermark from './PhotoWatermark'
+import { useAudio } from '../contexts/AudioContext'
 
 // Pastel hero text (readable on photo with subtle shadow)
 const HERO_LIGHT_BLUE = '#A9D1EA'
@@ -12,9 +13,8 @@ const HERO_BLUSH_PINK = '#F7E0E3'
 const heroTextShadow = '0 1px 3px rgba(0, 0, 0, 0.35), 0 0 20px rgba(255, 255, 255, 0.25)'
 
 const Hero = () => {
-  const [isPlaying, setIsPlaying] = useState(false)
-  const audioRef = useRef(null)
-  
+  const { play, pause, isPlaying } = useAudio()
+
   // Refs for animated elements
   const groomFirstNameRef = useRef(null)
   const groomLastNameRef = useRef(null)
@@ -45,17 +45,15 @@ const Hero = () => {
   const groomName = splitFullName(couple.groom.fullName)
   const brideName = splitFullName(couple.bride.fullName)
 
-  const venueName = venues.reception.name
+  /* Hero-only line; WHERE TO GO uses venues.reception.name */
+  const venueName = (venues.heroReceptionLine && String(venues.heroReceptionLine).trim()) || venues.reception.name
 
-  const togglePlayPause = () => {
-    if (audioRef.current) {
-      if (isPlaying) {
-        audioRef.current.pause()
-        setIsPlaying(false)
-      } else {
-        audioRef.current.play()
-        setIsPlaying(true)
-      }
+  /** Same track as envelope autoplay: pause while playing; resume (no restart) when paused. */
+  const handleHeroMusicButton = () => {
+    if (isPlaying) {
+      pause()
+    } else {
+      play(false)
     }
   }
 
@@ -155,20 +153,14 @@ const Hero = () => {
         marginRight: 'calc(50% - 50vw)',
       }}
     >
-      {/* Audio Element */}
-      <audio
-        ref={audioRef}
-        src="/assets/music/NIKI - You'll be in my heart (Spotify Single)  Music Lyric Video.mp3"
-        loop
-        onEnded={() => setIsPlaying(false)}
-      />
+      {/* Music: single AudioContext player (starts on envelope; button syncs to isPlaying) */}
 
       {/* Full-bleed banner: overflow hidden + slight scale removes edge gaps (letterboxing / subpixel) */}
       <div className="absolute inset-0 overflow-hidden">
         <img
           src={prenupImages.hero}
           alt="Hero"
-          className="absolute left-1/2 top-1/2 h-full w-full min-h-full min-w-full -translate-x-1/2 -translate-y-1/2 object-cover object-top md:object-[center_18%] scale-[1.08] sm:scale-[1.06] md:scale-[1.04] lg:scale-[1.02]"
+          className="absolute left-1/2 top-1/2 h-full w-full min-h-full min-w-full -translate-x-1/2 -translate-y-1/2 object-cover object-[56%_58%] sm:object-[center_56%] md:object-[58%_54%] lg:object-[56%_52%] scale-[1.08] sm:scale-[1.06] md:scale-[1.04] lg:scale-[1.02]"
           style={{ maxWidth: 'none' }}
         />
         <PhotoWatermark variant="hero" />
@@ -197,28 +189,42 @@ const Hero = () => {
       {/* Couple Names, Date and Venue at Top */}
       <div className="absolute top-0 left-0 right-0 pt-8 sm:pt-12 md:pt-16 lg:pt-20 px-4 sm:px-6 md:px-8 z-20">
         <div className="max-w-4xl mx-auto text-center">
-          <div className="flex flex-col items-center justify-center">
-            {/* Groom's Name - Glenn John Caracas (original dark blue / rose) */}
-            <div>
-              <p ref={groomFirstNameRef} className="font-foglihten text-3xl sm:text-4xl md:text-5xl lg:text-6xl uppercase leading-tight" style={{ color: '#1e3a5f' }}>
-                {groomName.first}
-              </p>
-              <p ref={groomLastNameRef} className="font-foglihten text-3xl sm:text-4xl md:text-5xl lg:text-6xl uppercase leading-tight -mt-2 sm:-mt-3" style={{ color: '#B76E79', textShadow: '0 1px 2px rgba(0,0,0,0.06)' }}>
-                {groomName.last}
-              </p>
-            </div>
-            <p ref={andRef} className="caudex-bold text-sm sm:text-base md:text-lg lg:text-xl uppercase leading-tight my-2 sm:my-3" style={{ color: HERO_SKY_BLUE, textShadow: heroTextShadow }}>
+          <div className="flex flex-col items-center justify-center md:grid md:grid-cols-[1fr_auto_1fr] md:grid-rows-2 md:items-end md:gap-x-3 md:gap-y-0">
+            <p
+              ref={groomFirstNameRef}
+              className="font-script text-4xl sm:text-5xl md:text-6xl lg:text-7xl normal-case leading-tight tracking-wide whitespace-nowrap md:col-start-1 md:row-start-1 md:justify-self-end"
+              style={{ color: '#1e3a5f' }}
+            >
+              {groomName.first}
+            </p>
+            <p
+              ref={groomLastNameRef}
+              className="font-script text-4xl sm:text-5xl md:text-6xl lg:text-7xl normal-case leading-tight -mt-1 sm:-mt-2 md:mt-0 tracking-wide whitespace-nowrap md:col-start-1 md:row-start-2 md:justify-self-end"
+              style={{ color: '#B76E79', textShadow: '0 1px 2px rgba(0,0,0,0.06)' }}
+            >
+              {groomName.last}
+            </p>
+            <p
+              ref={andRef}
+              className="caudex-bold text-sm sm:text-base md:text-lg lg:text-xl uppercase leading-tight my-2 sm:my-3 md:my-0 md:col-start-2 md:row-start-1 md:self-center"
+              style={{ color: HERO_SKY_BLUE, textShadow: heroTextShadow }}
+            >
               AND
             </p>
-            {/* Bride's Name - full name */}
-            <div>
-              <p ref={brideFirstNameRef} className="font-foglihten text-3xl sm:text-4xl md:text-5xl lg:text-6xl uppercase leading-tight" style={{ color: HERO_LIGHT_PINK, textShadow: heroTextShadow }}>
-                {brideName.first}
-              </p>
-              <p ref={brideLastNameRef} className="font-foglihten text-3xl sm:text-4xl md:text-5xl lg:text-6xl uppercase leading-tight -mt-2 sm:-mt-3" style={{ color: HERO_BLUSH_PINK, textShadow: heroTextShadow }}>
-                {brideName.last}
-              </p>
-            </div>
+            <p
+              ref={brideFirstNameRef}
+              className="font-script text-4xl sm:text-5xl md:text-6xl lg:text-7xl normal-case leading-tight tracking-wide whitespace-nowrap md:col-start-3 md:row-start-1 md:justify-self-start"
+              style={{ color: HERO_LIGHT_PINK, textShadow: heroTextShadow }}
+            >
+              {brideName.first}
+            </p>
+            <p
+              ref={brideLastNameRef}
+              className="font-script text-4xl sm:text-5xl md:text-6xl lg:text-7xl normal-case leading-tight -mt-1 sm:-mt-2 md:mt-0 tracking-wide whitespace-nowrap md:col-start-3 md:row-start-2 md:justify-self-start"
+              style={{ color: HERO_BLUSH_PINK, textShadow: heroTextShadow }}
+            >
+              {brideName.last}
+            </p>
           </div>
         </div>
       </div>
@@ -243,11 +249,11 @@ const Hero = () => {
         aria-hidden
       />
 
-      {/* Play/Pause Music Button - Bottom Right */}
+      {/* Music control — reflects autoplay; pauses same track, resumes without restarting */}
       <button
         type="button"
         ref={playButtonRef}
-        onClick={togglePlayPause}
+        onClick={handleHeroMusicButton}
         className="absolute bottom-4 sm:bottom-6 md:bottom-8 right-4 sm:right-6 md:right-8 z-30 w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 rounded-full bg-white/90 hover:bg-white transition-colors duration-200 flex items-center justify-center shadow-lg cursor-pointer"
         style={{ pointerEvents: 'auto' }}
         aria-label={isPlaying ? 'Pause music' : 'Play music'}

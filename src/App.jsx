@@ -8,7 +8,7 @@ import DynamicTitle from './components/DynamicTitle'
 import Loader from './components/Loader'
 import OpeningScreen from './components/OpeningScreen'
 import ScrollToTop from './components/ScrollToTop'
-import { AudioProvider } from './contexts/AudioContext'
+import { AudioProvider, useAudio } from './contexts/AudioContext'
 import { prenupImages } from './data'
 
 const Details = lazy(() => import('./components/pages/Details'))
@@ -19,6 +19,7 @@ function AppContent() {
   const [isRSVPModalOpen, setIsRSVPModalOpen] = useState(false)
   const [showInvitation, setShowInvitation] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
+  const { play } = useAudio()
   const navigate = useNavigate()
 
   // Preload critical images and resources
@@ -166,7 +167,8 @@ function AppContent() {
     preloadImages()
   }, [])
 
-  const handleEnvelopeOpen = () => {
+  const handleEnvelopeOpen = async () => {
+    await play(true)
     setShowInvitation(true)
     navigate('/')
   }

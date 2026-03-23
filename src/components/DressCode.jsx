@@ -56,11 +56,9 @@ const DressCode = () => {
   const category2Ref = useRef(null)
 
   // Dress code color palette (fallback for guests when not in data)
-  const BURGUNDY = '#800020'
-  const ROSE_GOLD = '#B76E79'
-  const BLUSH_PINK = '#F4C2C2'
-  const DUSTY_ROSE = '#C08081'
-  const defaultGuestColors = [BURGUNDY, ROSE_GOLD, BLUSH_PINK, DUSTY_ROSE]
+  const LIGHT_BLUE = '#A9D1EA'
+  const LIGHT_PINK = '#FDB7C2'
+  const defaultGuestColors = [LIGHT_BLUE, LIGHT_PINK]
 
   useEffect(() => {
     // Dress Code Title animation

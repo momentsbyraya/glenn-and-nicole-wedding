@@ -4,7 +4,6 @@ import Venue from './Venue'
 import Schedule from './Schedule'
 import EntourageSection from './EntourageSection'
 import RSVPSection from './RSVPSection'
-import LoveStory from './LoveStory'
 import Gallery from './Gallery'
 import GiftRegistry from './GiftRegistry'
 import DressCode from './DressCode'
@@ -18,6 +17,13 @@ const Home = ({ onOpenRSVP }) => {
     <div className="relative w-full bg-transparent">
       {/* Hero Section */}
       <Hero />
+
+      {/* Our Moments */}
+      <div className="relative z-20 flex items-center justify-center pt-12 pastel-watercolor-bg">
+        <div className="max-w-xs sm:max-w-md lg:max-w-3xl w-full mx-auto">
+          <Gallery />
+        </div>
+      </div>
 
       {/* Flower Banner - Top (Where to go) */}
       <div className="relative" style={{ width: '100vw' }}>
@@ -59,23 +65,17 @@ const Home = ({ onOpenRSVP }) => {
         <EntourageSection />
       </div>
 
-      {/* Content - soft pastel background for main sections */}
+      {/* Content - soft pastel background for remaining sections */}
       <div className="relative z-20 flex items-center justify-center pt-12 pastel-watercolor-bg">
         <div className="max-w-xs sm:max-w-md lg:max-w-3xl w-full mx-auto">
           {/* Dress Code Section */}
           <DressCode />
 
+          {/* Notes on Gifts */}
+          <GiftRegistry />
+
           {/* RSVP Section */}
           <RSVPSection onOpenRSVP={onOpenRSVP} />
-
-          {/* Love Story Section */}
-          <LoveStory />
-
-          {/* Gallery Section */}
-          <Gallery />
-
-          {/* Gifts Section */}
-          <GiftRegistry />
         </div>
       </div>
 

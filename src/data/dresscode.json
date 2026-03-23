@@ -7,6 +7,10 @@
     {
       "title": "Principal Sponsors",
       "type": "text",
+      "ninong": {
+        "description": "Barong/Black Pants/Leather shoes",
+        "colors": []
+      },
       "ninang": {
         "description": "Light Pink Long Gown",
         "colors": ["#FDB7C2", "#F7E0E3"]
@@ -16,12 +20,12 @@
     {
       "title": "Guests",
       "type": "image",
-      "description": "Light Blue or Light Pink Attire",
+      "description": "Women: blouse/cocktail dress. Men: button down polo/long sleeve. Smart casual/semi formal only.",
       "colorPaletteLabel": "Light Blue or Light Pink",
-      "colors": ["#A9D1EA", "#C6E1F2", "#FDB7C2", "#F7E0E3"],
+      "colors": ["#A9D1EA", "#FDB7C2"],
       "images": [
-        "/assets/images/dresscode/Untitled design (2).png",
-        "/assets/images/dresscode/Untitled design (1).png"
+        "/assets/images/dresscode/Untitled design (4).png",
+        "/assets/images/dresscode/Untitled design (3).png"
       ]
     }
   ]
