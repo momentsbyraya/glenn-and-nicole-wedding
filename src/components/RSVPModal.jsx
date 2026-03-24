@@ -4,6 +4,11 @@ import { gsap } from 'gsap'
 import { X } from 'lucide-react'
 import { themeConfig } from '../config/themeConfig'
 
+/** Share link (shown in UI). Embed URL must match this form — update both if the form is replaced. */
+const RSVP_FORM_URL = 'https://forms.gle/8LCHqMB4SWMBgi3k9'
+const RSVP_FORM_EMBED_URL =
+  'https://docs.google.com/forms/d/e/1FAIpQLScgjUnyPxTGZNY9YHFpvI4gsUxuZSUh9-rN2URvqr19g4RP1Q/viewform?embedded=true'
+
 const RSVPModal = ({ isOpen, onClose }) => {
   const modalRef = useRef(null)
   const overlayRef = useRef(null)
@@ -95,9 +100,23 @@ const RSVPModal = ({ isOpen, onClose }) => {
           </button>
         </div>
         
-        {/* Content - To be added */}
-        <div className="p-4 sm:p-6 overflow-y-auto flex-1 rsvp-modal-content flex items-center justify-center min-h-[200px]">
-          <p className="text-center text-gray-600 font-albert text-lg">To be added</p>
+        <div className="p-4 sm:p-6 flex-1 min-h-0 flex flex-col rsvp-modal-content gap-3">
+          <iframe
+            title="RSVP — Google Form"
+            src={RSVP_FORM_EMBED_URL}
+            className="w-full flex-1 min-h-[min(70vh,640px)] border-0 rounded-lg bg-white"
+            loading="lazy"
+          />
+          <p className="text-center text-sm text-gray-600 font-albert shrink-0">
+            <a
+              href={RSVP_FORM_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-burgundy-dark hover:underline break-all"
+            >
+              {RSVP_FORM_URL}
+            </a>
+          </p>
         </div>
       </div>
     </div>,
