@@ -1,5 +1,9 @@
 {
   "heroReceptionLine": "National Shrine of Sacred Heart Makati City",
+  "heroCeremonyLines": [
+    "National Shrine of Sacred",
+    "Heart Makati City"
+  ],
   "ceremony": {
     "name": "National Shrine of the Sacred Heart",
     "address": "",

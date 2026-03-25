@@ -295,7 +295,10 @@ const GiftRegistry = () => {
                 </button>
               ))}
             </div>
-            <p className="mt-3 text-sm sm:text-base font-albert italic text-burgundy-dark text-center">
+            <p className="mt-3 text-sm sm:text-base font-albert font-medium text-burgundy-dark text-center tracking-wide">
+              {paymentMethods[activeGiftIndex]?.qrLabel ?? paymentMethods[activeGiftIndex]?.name}
+            </p>
+            <p className="mt-1.5 text-sm sm:text-base font-albert italic text-burgundy-dark text-center opacity-90">
               PS: Click chosen QR
             </p>
           </div>

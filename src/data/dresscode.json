@@ -5,16 +5,22 @@
   },
   "sections": [
     {
-      "title": "Principal Sponsors",
+      "title": "Entourage",
       "type": "text",
-      "ninong": {
-        "description": "Barong/Black Pants/Leather shoes",
-        "colors": []
-      },
-      "ninang": {
-        "description": "Light Pink Long Gown",
-        "colors": ["#FDB7C2", "#F7E0E3"]
-      },
+      "entourageLines": [
+        {
+          "label": "Male Entourage and Ninongs",
+          "description": "Barong / Black Pants / Leather Shoes"
+        },
+        {
+          "label": "Ninangs",
+          "description": "Light Pink Long Gown"
+        },
+        {
+          "label": "Female Entourage",
+          "description": "Powder Blue Matte Long Gown"
+        }
+      ],
       "image": "/assets/images/dresscode/principal.png"
     },
     {

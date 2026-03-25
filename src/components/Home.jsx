@@ -18,13 +18,6 @@ const Home = ({ onOpenRSVP }) => {
       {/* Hero Section */}
       <Hero />
 
-      {/* Our Moments */}
-      <div className="relative z-20 flex items-center justify-center pt-12 pastel-watercolor-bg">
-        <div className="max-w-xs sm:max-w-md lg:max-w-3xl w-full mx-auto">
-          <Gallery />
-        </div>
-      </div>
-
       {/* Flower Banner - Top (Where to go) */}
       <div className="relative" style={{ width: '100vw' }}>
         <img 
@@ -65,17 +58,20 @@ const Home = ({ onOpenRSVP }) => {
         <EntourageSection />
       </div>
 
-      {/* Content - soft pastel background for remaining sections */}
+      {/* Content - soft pastel background for main sections */}
       <div className="relative z-20 flex items-center justify-center pt-12 pastel-watercolor-bg">
         <div className="max-w-xs sm:max-w-md lg:max-w-3xl w-full mx-auto">
           {/* Dress Code Section */}
           <DressCode />
 
-          {/* Notes on Gifts */}
-          <GiftRegistry />
-
           {/* RSVP Section */}
           <RSVPSection onOpenRSVP={onOpenRSVP} />
+
+          {/* Gallery Section */}
+          <Gallery />
+
+          {/* Gifts Section */}
+          <GiftRegistry />
         </div>
       </div>
 

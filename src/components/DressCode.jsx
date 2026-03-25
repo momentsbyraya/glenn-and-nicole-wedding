@@ -189,7 +189,7 @@ const DressCode = () => {
   return (
     <div className="relative">
       {/* Dress Code Title */}
-      <div ref={dressCodeTitleRef} className="text-center mb-12 sm:mb-16">
+      <div ref={dressCodeTitleRef} className="text-center mb-8 sm:mb-10 md:mb-12">
         <div>
           {/* Single Flower 1 Image */}
           <div className="flex justify-center mb-4">
@@ -215,7 +215,7 @@ const DressCode = () => {
 
       {/* Dress Code Content */}
       <div className="flex flex-col lg-custom:flex-row gap-3 lg-custom:gap-4 items-stretch">
-        {/* Principal Sponsors Category */}
+        {/* Entourage dress code */}
         {dresscode.sections && dresscode.sections[0] && (() => {
           const section = dresscode.sections[0];
           return (
@@ -226,37 +226,51 @@ const DressCode = () => {
                   className="transition-opacity duration-500 ease-in-out"
                 >
                   {/* Category Image and Details - Side by side on mobile, stacked on 992px+ */}
-                  <div className="flex flex-row lg-custom:flex-col gap-6 md:gap-8 lg-custom:gap-6 items-start">
-                    {/* Category Details - First category: right aligned on mobile, left aligned on 992px+ */}
-                    <div className="w-1/2 lg-custom:w-full flex flex-col text-right lg-custom:text-left order-1 lg-custom:order-2">
+                  <div className="flex flex-row lg-custom:flex-col gap-6 md:gap-8 lg-custom:gap-6 items-center lg-custom:items-stretch w-full max-w-lg sm:max-w-2xl md:max-w-3xl mx-auto lg-custom:max-w-none">
+                    {/* Entourage copy: centered in column; pairs with illustration */}
+                    <div className="w-1/2 lg-custom:w-full flex flex-col text-center lg-custom:text-center order-1 lg-custom:order-2">
                       {/* Category Name and Description Container */}
                       <div className="w-full">
                         {/* Category Name */}
-                        <div className="text-lg sm:text-xl md:text-2xl font-boska text-burgundy-dark mb-3 text-right lg-custom:text-left">
+                        <div className="text-lg sm:text-xl md:text-2xl font-boska text-burgundy-dark mb-3 text-center">
                           {section.title}
                         </div>
 
+                        {Array.isArray(section.entourageLines) && section.entourageLines.length > 0 && (
+                          <div className="space-y-3 sm:space-y-4 text-center mb-1 max-w-sm sm:max-w-md mx-auto">
+                            {section.entourageLines.map((line) => (
+                              <p
+                                key={line.label}
+                                className="text-sm sm:text-base font-albert text-burgundy-dark leading-snug sm:leading-relaxed"
+                              >
+                                <span className="font-medium">{line.label}: </span>
+                                <span className="font-thin italic">{line.description}</span>
+                              </p>
+                            ))}
+                          </div>
+                        )}
+
                         {/* Ninong & Ninang (card-style) */}
-                        {section.ninong && (
-                          <div className="mb-4 text-right lg-custom:text-left">
+                        {!section.entourageLines?.length && section.ninong && (
+                          <div className="mb-4 text-center">
                             <p className="text-sm sm:text-base font-albert text-burgundy-dark mb-1">
                               <span className="font-medium">Ninong</span>{' '}
                               <span className="font-thin italic">{section.ninong.description}</span>
                             </p>
-                            <div className="dresscode-swatches-overlap justify-end lg-custom:justify-start flex mt-1.5">
+                            <div className="dresscode-swatches-overlap justify-center flex mt-1.5">
                               {(section.ninong.colors || []).map((color, index) => (
                                 <div key={index} className="dresscode-swatch-circle" style={{ backgroundColor: color }} />
                               ))}
                             </div>
                           </div>
                         )}
-                        {section.ninang && (
-                          <div className="text-right lg-custom:text-left">
+                        {!section.entourageLines?.length && section.ninang && (
+                          <div className="text-center">
                             <p className="text-sm sm:text-base font-albert text-burgundy-dark mb-1">
                               <span className="font-medium">Ninang</span>{' '}
                               <span className="font-thin italic">{section.ninang.description}</span>
                             </p>
-                            <div className="dresscode-swatches-overlap justify-end lg-custom:justify-start flex mt-1.5">
+                            <div className="dresscode-swatches-overlap justify-center flex mt-1.5">
                               {(section.ninang.colors || []).map((color, index) => (
                                 <div key={index} className="dresscode-swatch-circle" style={{ backgroundColor: color }} />
                               ))}
@@ -264,7 +278,7 @@ const DressCode = () => {
                           </div>
                         )}
                         {/* Fallback: single description when no ninong/ninang */}
-                        {!section.ninong && !section.ninang && section.description && (
+                        {!section.entourageLines?.length && !section.ninong && !section.ninang && section.description && (
                           <p className="text-sm sm:text-base font-albert font-thin italic text-burgundy-dark">
                             {section.description}
                           </p>
@@ -274,8 +288,8 @@ const DressCode = () => {
                     
                     {/* Category Image - First category: right on mobile, top on desktop */}
                     {section.image && (
-                      <div className="w-1/2 lg-custom:w-full order-2 lg-custom:order-1">
-                        <div className="w-full relative dresscode-image-container">
+                      <div className="w-1/2 lg-custom:w-full order-2 lg-custom:order-1 flex justify-center lg-custom:block shrink-0">
+                        <div className="w-full max-w-[200px] sm:max-w-[220px] md:max-w-[240px] lg-custom:max-w-none relative dresscode-image-container">
                           <img
                             src={section.image}
                             alt={section.title}

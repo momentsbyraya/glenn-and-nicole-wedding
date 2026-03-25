@@ -2,11 +2,12 @@
   "paymentMethods": [
     {
       "name": "GCash",
+      "qrLabel": "Glenn",
       "image": "/assets/images/qr/gcash-qr.png",
       "accountInfo": {
         "provider": "GCash",
         "accountNumber": "",
-        "accountName": "",
+        "accountName": "Glenn",
         "qrCode": "/assets/images/qr/gcash-qr.png"
       }
     },
