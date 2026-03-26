@@ -113,7 +113,12 @@ function AppContent() {
               if (heroImg) {
                 // Check if image is loaded and visible
                 if (heroImg.complete && heroImg.naturalHeight > 0) {
-                  // Use Intersection Observer to check if hero is visible
+                  // Use IntersectionObserver when available; fallback for older Safari
+                  if (!('IntersectionObserver' in window)) {
+                    setTimeout(() => resolve(), 120)
+                    return
+                  }
+
                   const observer = new IntersectionObserver((entries) => {
                     entries.forEach(entry => {
                       if (entry.isIntersecting) {

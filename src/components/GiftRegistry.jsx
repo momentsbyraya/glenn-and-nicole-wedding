@@ -61,9 +61,13 @@ const GiftRegistry = () => {
     }
     measureSetWidth()
     requestAnimationFrame(measureSetWidth)
-    const resizeObserver = new ResizeObserver(measureSetWidth)
-    if (carouselFirstSetRef.current) {
+    const supportsResizeObserver = typeof window !== 'undefined' && 'ResizeObserver' in window
+    const resizeObserver = supportsResizeObserver ? new ResizeObserver(measureSetWidth) : null
+
+    if (resizeObserver && carouselFirstSetRef.current) {
       resizeObserver.observe(carouselFirstSetRef.current)
+    } else {
+      window.addEventListener('resize', measureSetWidth)
     }
 
     const tick = () => {
@@ -90,7 +94,11 @@ const GiftRegistry = () => {
     return () => {
       if (rafRef.current) cancelAnimationFrame(rafRef.current)
       if (pauseTimeoutRef.current) clearTimeout(pauseTimeoutRef.current)
-      resizeObserver.disconnect()
+      if (resizeObserver) {
+        resizeObserver.disconnect()
+      } else {
+        window.removeEventListener('resize', measureSetWidth)
+      }
     }
   }, [isCarouselPaused])
 
@@ -397,3 +405,4 @@ const GiftRegistry = () => {
 }
 
 export default GiftRegistry
+

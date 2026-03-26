@@ -34,6 +34,15 @@ export const useAdvancedLazyLoading = (options = {}) => {
   }, [threshold, hasTriggered, onIntersect, delay, triggerOnce])
 
   useEffect(() => {
+    if (typeof window === 'undefined') return undefined
+
+    if (!('IntersectionObserver' in window)) {
+      setIsVisible(true)
+      setHasTriggered(true)
+      const timeoutId = window.setTimeout(() => setIsLoaded(true), delay)
+      return () => window.clearTimeout(timeoutId)
+    }
+
     const observer = new IntersectionObserver((entries) => handleIntersection(entries, observer), {
       threshold: threshold,
       rootMargin: rootMargin
@@ -44,9 +53,7 @@ export const useAdvancedLazyLoading = (options = {}) => {
     }
 
     return () => {
-      if (elementRef.current) {
-        observer.unobserve(elementRef.current)
-      }
+      observer.disconnect()
     }
   }, [handleIntersection, threshold, rootMargin])
 

@@ -32,5 +32,10 @@
     "tailwindcss": "^3.3.3",
     "vite": "^4.4.5",
     "webpack-bundle-analyzer": "^4.10.2"
-  }
+  },
+  "browserslist": [
+    "defaults",
+    "safari >= 13",
+    "ios_saf >= 13"
+  ]
 }

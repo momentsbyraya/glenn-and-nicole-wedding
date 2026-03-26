@@ -6,6 +6,14 @@ export const useLazyLoading = (threshold = 0.5) => {
   const elementRef = useRef(null)
 
   useEffect(() => {
+    if (typeof window === 'undefined') return undefined
+
+    if (!('IntersectionObserver' in window)) {
+      setIsVisible(true)
+      const timeoutId = window.setTimeout(() => setIsLoaded(true), 100)
+      return () => window.clearTimeout(timeoutId)
+    }
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         // When the element is halfway visible (threshold = 0.5)
@@ -28,9 +36,7 @@ export const useLazyLoading = (threshold = 0.5) => {
     }
 
     return () => {
-      if (elementRef.current) {
-        observer.unobserve(elementRef.current)
-      }
+      observer.disconnect()
     }
   }, [threshold])
 

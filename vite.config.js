@@ -51,7 +51,10 @@ export default defineConfig({
   },
   build: {
     outDir: 'dist',
-    sourcemap: false
+    sourcemap: false,
+    // Slightly older JS/CSS targets improve Safari compatibility
+    target: 'es2019',
+    cssTarget: 'safari13'
   },
   publicDir: 'assets'
 }) 
