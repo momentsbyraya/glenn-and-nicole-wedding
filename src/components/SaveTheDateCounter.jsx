@@ -5,9 +5,10 @@ import { getTimeUntilWedding } from '../utils/countdown'
 import { couple, prenupImages } from '../data'
 
 /** Same palette as `Hero.jsx` */
-const HERO_BLUE_PRIMARY = '#4A90E2'
-const HERO_PINK_ACCENT = '#FF8FA3'
-const HERO_BLUE_STRONG = '#3A7BD5'
+const HERO_BLUE_PRIMARY = '#103A8C'
+const HERO_PINK_ACCENT = '#B03060'
+const HERO_BLUE_STRONG = '#0B2F73'
+const HERO_TEXT_SHADOW = '0 1px 2px rgba(255,255,255,0.9), 0 3px 12px rgba(255,255,255,0.6)'
 import PhotoWatermark from './PhotoWatermark'
 import './pages/Details.css'
 
@@ -138,7 +139,7 @@ const SaveTheDateCounter = () => {
           <h2
             ref={titleRef}
             className="font-foglihten text-3xl sm:text-4xl md:text-5xl lg:text-6xl capitalize"
-            style={{ color: HERO_BLUE_PRIMARY }}
+            style={{ color: HERO_BLUE_PRIMARY, textShadow: HERO_TEXT_SHADOW }}
           >
             Save The Date
           </h2>
@@ -148,37 +149,37 @@ const SaveTheDateCounter = () => {
         <div ref={countdownLabelsRef}>
         <div ref={countdownRef} className="flex justify-center items-center space-x-3 sm:space-x-4 md:space-x-6 px-4">
           <div className="text-center">
-            <div className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-albert font-semibold mb-1 countdown-number tabular-nums" style={{ color: HERO_BLUE_PRIMARY }}>
+            <div className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-albert font-semibold mb-1 countdown-number tabular-nums" style={{ color: HERO_BLUE_PRIMARY, textShadow: HERO_TEXT_SHADOW }}>
               {countdown.days}
             </div>
-            <div className="text-xs sm:text-sm font-albert font-medium" style={{ color: HERO_PINK_ACCENT }}>Days</div>
+            <div className="text-xs sm:text-sm font-albert font-medium" style={{ color: HERO_PINK_ACCENT, textShadow: HERO_TEXT_SHADOW }}>Days</div>
           </div>
           
-          <div className="text-2xl sm:text-3xl md:text-4xl font-albert font-thin" style={{ color: HERO_BLUE_STRONG }}>:</div>
+          <div className="text-2xl sm:text-3xl md:text-4xl font-albert font-thin" style={{ color: HERO_BLUE_STRONG, textShadow: HERO_TEXT_SHADOW }}>:</div>
           
           <div className="text-center">
-            <div className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-albert font-semibold mb-1 countdown-number tabular-nums" style={{ color: HERO_BLUE_PRIMARY }}>
+            <div className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-albert font-semibold mb-1 countdown-number tabular-nums" style={{ color: HERO_BLUE_PRIMARY, textShadow: HERO_TEXT_SHADOW }}>
               {countdown.hours}
             </div>
-            <div className="text-xs sm:text-sm font-albert font-medium" style={{ color: HERO_PINK_ACCENT }}>Hours</div>
+            <div className="text-xs sm:text-sm font-albert font-medium" style={{ color: HERO_PINK_ACCENT, textShadow: HERO_TEXT_SHADOW }}>Hours</div>
           </div>
           
-          <div className="text-2xl sm:text-3xl md:text-4xl font-albert font-thin" style={{ color: HERO_BLUE_STRONG }}>:</div>
+          <div className="text-2xl sm:text-3xl md:text-4xl font-albert font-thin" style={{ color: HERO_BLUE_STRONG, textShadow: HERO_TEXT_SHADOW }}>:</div>
           
           <div className="text-center">
-            <div className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-albert font-semibold mb-1 countdown-number tabular-nums" style={{ color: HERO_BLUE_PRIMARY }}>
+            <div className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-albert font-semibold mb-1 countdown-number tabular-nums" style={{ color: HERO_BLUE_PRIMARY, textShadow: HERO_TEXT_SHADOW }}>
               {countdown.minutes}
             </div>
-            <div className="text-xs sm:text-sm font-albert font-medium" style={{ color: HERO_PINK_ACCENT }}>Minutes</div>
+            <div className="text-xs sm:text-sm font-albert font-medium" style={{ color: HERO_PINK_ACCENT, textShadow: HERO_TEXT_SHADOW }}>Minutes</div>
           </div>
           
-          <div className="text-2xl sm:text-3xl md:text-4xl font-albert font-thin" style={{ color: HERO_BLUE_STRONG }}>:</div>
+          <div className="text-2xl sm:text-3xl md:text-4xl font-albert font-thin" style={{ color: HERO_BLUE_STRONG, textShadow: HERO_TEXT_SHADOW }}>:</div>
           
           <div className="text-center">
-            <div className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-albert font-semibold mb-1 countdown-number tabular-nums" style={{ color: HERO_BLUE_PRIMARY }}>
+            <div className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-albert font-semibold mb-1 countdown-number tabular-nums" style={{ color: HERO_BLUE_PRIMARY, textShadow: HERO_TEXT_SHADOW }}>
               {countdown.seconds}
             </div>
-            <div className="text-xs sm:text-sm font-albert font-medium" style={{ color: HERO_PINK_ACCENT }}>Seconds</div>
+            <div className="text-xs sm:text-sm font-albert font-medium" style={{ color: HERO_PINK_ACCENT, textShadow: HERO_TEXT_SHADOW }}>Seconds</div>
           </div>
         </div>
         </div>
